@@ -54,7 +54,7 @@
         outlined
         class="mb-6">
         <v-card-text>
-          <p>
+          <p class="rolls mt-4">
             <span v-for="(dice, index) in currentRolls" :key="index">
               <v-icon x-large left>mdi-dice-{{ dice.roll }}-outline</v-icon>
             </span>
