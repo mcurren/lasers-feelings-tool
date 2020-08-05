@@ -10,6 +10,8 @@
             class="mb-2"
             v-model="targetNumber"
             thumb-label="always"
+            color="info"
+            track-color="warning"
             prepend-icon="mdi-heart"
             append-icon="mdi-brain"
             min="2"
@@ -18,6 +20,9 @@
 
           <h3 class="overline mb-2">Roll</h3>
           <v-btn-toggle 
+            background-color="accent"
+            color="primary"
+            dense
             class="mb-4"
             v-model="rollType">
             <v-btn value="lasers">Lasers</v-btn>
@@ -27,6 +32,9 @@
           <div v-show="hasRollType">
             <h3 class="overline mb-2">Number Of Dice</h3>
             <v-btn-toggle 
+              background-color="accent"
+              color="primary"
+              dense
               v-model="diceNum">
               <v-btn value="1">1</v-btn>
               <v-btn value="2">2</v-btn>
@@ -40,15 +48,15 @@
             tile 
             x-large 
             block
-            color="primary" 
+            color="info"
             @click="rollDice()">
-            <v-icon dark left>mdi-dice-multiple-outline</v-icon> Roll!
+            <v-icon left light>mdi-dice-multiple-outline</v-icon> Roll!
           </v-btn>
         </v-card-actions>
       </v-card>
     </section>
 
-    <section class="outcome" v-if="currentRolls.length">
+    <section class="results" v-if="currentRolls.length">
       <v-card
         flat
         outlined
@@ -60,7 +68,7 @@
             </span>
           </p>
           <p class="outcome headline mt-4" v-html="showOutcome"></p>
-          <p class="laserfeelings headline mt-4" v-if="hasLaserFeelings">And you have <em>Laser Feelings</em> about it!</p>
+          <p class="laserfeelings headline mt-4" v-if="hasLaserFeelings">And you have <em class="win">Laser Feelings</em> about it!</p>
         </v-card-text>
       </v-card>
     </section>
@@ -76,10 +84,10 @@
       diceNum: null,
       currentRolls: [],
       outcomeText: [
-        "Oh no, it's a <em>total</em> failure!",
-        "It's a... <em>mixed</em> success.",
+        "Oh no, it's a <em class='failure'>total failure</em>!",
+        "It's a... <em class='mixed'>mixed success</em>.",
         "Huzzah, you did it.",
-        "Holy <em>$#!%</em>, it's a <strong>critical success</strong>!!!",
+        "Holy <em>$#!%</em>, it's a <strong class='win'>critical success</strong>!!!",
       ],
     }),
     computed: {
@@ -133,7 +141,7 @@
 </script>
 <style lang="scss" scoped>
   main {
-    max-width: 600px;
+    max-width: 580px;
     margin: 0 auto;
     padding: 1em;
   }

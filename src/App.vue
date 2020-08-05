@@ -3,8 +3,7 @@
     <v-app-bar
       app
       color="primary"
-      dark
-    >
+      dark>
       <div class="d-flex align-center">
         <h1 class="text-h6">Roll for LASERS & FEELINGS</h1>
       </div>
@@ -16,11 +15,11 @@
           <v-btn 
             fab
             small
+            color="error"
             elevation="1"
-            color="light-blue"
             v-bind="attrs"
             v-on="on">
-            <v-icon dark>mdi-head-question-outline</v-icon>
+            <v-icon>mdi-head-question-outline</v-icon>
           </v-btn>
         </template>
         <v-card>
@@ -30,7 +29,7 @@
             <p>This app has got your back!</p>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="blue darken-1" text @click="dialog = false">Ok, let me roll!</v-btn>
+            <v-btn text @click="dialog = false">Ok, let me roll!</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -55,3 +54,26 @@ export default {
   }),
 };
 </script>
+
+<style lang="scss">
+  .theme--light.v-icon {
+    color: rgba(0,8,37,0.74);
+  }
+  .theme--light.v-card > .v-card__text, 
+  .theme--light.v-card .v-card__subtitle {
+    color: rgba(0,8,37,0.8);
+  }
+  .theme--light.v-sheet--outlined {
+    border-color: rgba(0,8,37,0.2);
+  }
+
+  .results .mixed {
+    color: darken(#fab864, 15%);
+  }
+  .results .win {
+    color: #01a8a5;
+  }
+  .results .failure {
+    color: #d4396f;
+  }
+</style>
