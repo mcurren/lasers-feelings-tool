@@ -56,6 +56,9 @@ export default {
 </script>
 
 <style lang="scss">
+  .theme--light > .v-application--wrap {
+    background: lighten(#8BC4FE, 21%);
+  }
   .theme--light.v-icon {
     color: rgba(0,8,37,0.74);
   }
