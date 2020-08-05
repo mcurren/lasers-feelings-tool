@@ -3,11 +3,11 @@
     <section class="settings">
       <v-card
         flat
+        shaped
         outlined>
         <v-card-text>
-          <h3 class="overline mb-6">Character Number</h3>
+          <h3 class="overline mb-6 mt-0">Character Number</h3>
           <v-slider
-            class="mb-2"
             v-model="targetNumber"
             thumb-label="always"
             color="info"
@@ -18,19 +18,18 @@
             max="5"
           ></v-slider>
 
-          <h3 class="overline mb-2">Roll</h3>
+          <h3 class="overline mb-0">Roll</h3>
           <v-btn-toggle 
             background-color="accent"
             color="primary"
             dense
-            class="mb-4"
             v-model="rollType">
             <v-btn value="lasers">Lasers</v-btn>
             <v-btn value="feelings">Feelings</v-btn>
           </v-btn-toggle>
 
           <div v-show="hasRollType">
-            <h3 class="overline mb-2">Number Of Dice</h3>
+            <h3 class="overline mb-0 mt-3">Number Of Dice</h3>
             <v-btn-toggle 
               background-color="accent"
               color="primary"
@@ -45,9 +44,11 @@
 
         <v-card-actions v-show="hasRollType && hasDiceNum">
           <v-btn 
-            tile 
+            class="mb-2"
             x-large 
+            rounded
             block
+            elevation="0"
             color="info"
             @click="rollDice()">
             <v-icon left light>mdi-dice-multiple-outline</v-icon> Roll!
@@ -59,16 +60,17 @@
     <section class="results" v-if="currentRolls.length">
       <v-card
         flat
+        shaped
         outlined
         class="mb-6">
         <v-card-text>
-          <p class="rolls mt-4">
+          <p class="rolls mt-3 mb-3">
             <span v-for="(dice, index) in currentRolls" :key="index">
               <v-icon x-large left>mdi-dice-{{ dice.roll }}-outline</v-icon>
             </span>
           </p>
-          <p class="outcome headline mt-4" v-html="showOutcome"></p>
-          <p class="laserfeelings headline mt-4" v-if="hasLaserFeelings">And you have <em class="win">Laser Feelings</em> about it!</p>
+          <p class="outcome headline mt-3 mb-3" v-html="showOutcome"></p>
+          <p class="laserfeelings headline mt-3 mb-3" v-if="hasLaserFeelings">And you have <em class="win">Laser Feelings</em> about it!</p>
         </v-card-text>
       </v-card>
     </section>

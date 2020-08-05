@@ -3,6 +3,7 @@
     <v-app-bar
       app
       color="primary"
+      flat
       dark>
       <div class="d-flex align-center">
         <h1 class="text-h6">Roll for LASERS & FEELINGS</h1>
@@ -67,7 +68,7 @@ export default {
     color: rgba(0,8,37,0.8);
   }
   .theme--light.v-sheet--outlined {
-    border-color: rgba(0,8,37,0.2);
+    border-color: rgba(0,8,37,0.28);
   }
 
   .results .mixed {
