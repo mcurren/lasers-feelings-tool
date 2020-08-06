@@ -24,7 +24,8 @@
                 <v-btn
                   fab
                   small
-                  elevation="1"
+                  elevation="0"
+                  color="#f7edfd"
                   @click="decrement"
                   class="slider-button">
                   <!-- <v-icon
@@ -41,7 +42,8 @@
                 <v-btn
                   fab
                   small
-                  elevation="1"
+                  elevation="0"
+                  color="#f7edfd"
                   @click="increment"
                   class="slider-button">
                   <v-icon
