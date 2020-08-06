@@ -191,9 +191,9 @@
     }
   }
 
-  .rollFade-leave {
-    transition-delay: 0.6s, 0;
-  }
+  // .rollFade-leave {
+  //   transition-delay: 0.6s, 0;
+  // }
   .rollFade-enter-active, 
   .rollFade-leave-active {
     transition-property: opacity, transform;
