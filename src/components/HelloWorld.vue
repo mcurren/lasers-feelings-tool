@@ -7,7 +7,7 @@
           shaped
           outlined>
           <v-card-text>
-            <h3 class="overline mb-4 mt-0">Character Number</h3>
+            <h3 class="overline mb-3 mt-0">Character Number</h3>
             <v-slider
               v-model="targetNumber"
               thumb-label="always"
