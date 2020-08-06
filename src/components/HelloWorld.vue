@@ -7,17 +7,54 @@
           shaped
           outlined>
           <v-card-text>
-            <h3 class="overline mb-6 mt-0">Character Number</h3>
+            <h3 class="overline mb-4 mt-0">Character Number</h3>
             <v-slider
               v-model="targetNumber"
               thumb-label="always"
               color="info"
               track-color="warning"
-              prepend-icon="mdi-heart"
-              append-icon="mdi-brain"
               min="2"
               max="5"
-            ></v-slider>
+              ticks="always"
+              :thumb-size="24"
+              class="slider"
+              hide-details
+            >
+              <template v-slot:prepend>
+                <v-btn
+                  fab
+                  small
+                  elevation="1"
+                  @click="decrement"
+                  class="slider-button">
+                  <!-- <v-icon
+                    color="secondary">
+                    mdi-minus
+                  </v-icon> -->
+                  <v-icon
+                    color="error">
+                    mdi-heart
+                  </v-icon>
+                </v-btn>
+              </template>
+              <template v-slot:append>
+                <v-btn
+                  fab
+                  small
+                  elevation="1"
+                  @click="increment"
+                  class="slider-button">
+                  <v-icon
+                    color="success">
+                    mdi-brain
+                  </v-icon>
+                  <!-- <v-icon
+                    color="secondary">
+                    mdi-plus
+                  </v-icon> -->
+                </v-btn>
+              </template>
+             </v-slider>
 
             <h3 class="overline mb-0">Roll</h3>
             <v-btn-toggle 
@@ -157,6 +194,14 @@
         this.diceNum = null
         this.currentRolls = []
       },
+      decrement () {
+        if (this.targetNumber < 3) return
+        this.targetNumber--
+      },
+      increment () {
+        if (this.targetNumber > 4) return
+        this.targetNumber++
+      },
     }
   }
 </script>
@@ -169,6 +214,13 @@
   section {
     margin: 2em 0;
   }
+
+  .slider {
+    align-items: center;
+  }
+  // .slider-button {
+  //   padding: 0 !important;
+  // }
 
   .results {
     .rolls {
