@@ -97,55 +97,58 @@ export default {
 </script>
 
 <style lang="scss">
-  .theme--light > .v-application--wrap {
-    background: lighten(#fab864, 28%);
-    background: linear-gradient(0deg, rgba(90,16,120,0.9) 10%, rgba(177,59,191,0.9) 45%, rgba(250,184,100,0.9) 100%);
-  }
-  .theme--light.v-icon {
-    color: rgba(0,8,37,0.74);
-  }
-  .theme--light.v-card > .v-card__text, 
-  .theme--light.v-card .v-card__subtitle {
-    color: rgba(0,8,37,0.8);
-  }
-  .theme--light.v-sheet--outlined {
-    border-color: rgba(0,8,37,0.28);
-  }
-  .v-expansion-panel-header,
-  .v-expansion-panel-content__wrap {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
+body {
+  touch-action: manipulation;
+}
+.theme--light > .v-application--wrap {
+  background: lighten(#fab864, 28%);
+  background: linear-gradient(0deg, rgba(90,16,120,0.9) 10%, rgba(177,59,191,0.9) 45%, rgba(250,184,100,0.9) 100%);
+}
+.theme--light.v-icon {
+  color: rgba(0,8,37,0.74);
+}
+.theme--light.v-card > .v-card__text, 
+.theme--light.v-card .v-card__subtitle {
+  color: rgba(0,8,37,0.8);
+}
+.theme--light.v-sheet--outlined {
+  border-color: rgba(0,8,37,0.28);
+}
+.v-expansion-panel-header,
+.v-expansion-panel-content__wrap {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
 
-  .results {
-    .mixed {
-      color: darken(#fab864, 15%);
-    }
-    .win {
-      color: #01a8a5;
-    }
-    .fail {
-      color: #d4396f;
-    }
-    em, strong {
-      white-space: nowrap;
-    }
+.results {
+  .mixed {
+    color: darken(#fab864, 15%);
   }
+  .win {
+    color: #01a8a5;
+  }
+  .fail {
+    color: #d4396f;
+  }
+  em, strong {
+    white-space: nowrap;
+  }
+}
 
-  .hide-xs {
-    @media (max-width: 459px) {
-      display: none;
-    }
+.hide-xs {
+  @media (max-width: 459px) {
+    display: none;
   }
-  .footer-links {
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-    a {
-      display: inline-block;
-      color: white !important;
-      text-decoration: none;
-      padding: 0.5rem;
-    }
+}
+.footer-links {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  a {
+    display: inline-block;
+    color: white !important;
+    text-decoration: none;
+    padding: 0.5rem;
   }
+}
 </style>
