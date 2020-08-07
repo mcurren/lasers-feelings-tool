@@ -1,11 +1,15 @@
 <template>
-  <main>
-    <transition name="rollFade">
-      <section class="settings" v-show="!currentRolls.length">
+  <div class="lasers-feelings">
+    <transition 
+      name="rollFade"
+      @before-enter="resetInputs"
+      @after-enter="resetCurrentRolls">
+      <section class="settings" v-show="!hasRolled">
         <v-card
           flat
           shaped
-          outlined>
+          max-width="600px"
+          elevation="0">
           <v-card-text>
             <h3 class="overline mb-3 mt-0">Character Number</h3>
             <v-slider
@@ -18,8 +22,7 @@
               ticks="always"
               :thumb-size="24"
               class="slider"
-              hide-details
-            >
+              hide-details>
               <template v-slot:prepend>
                 <v-btn
                   fab
@@ -62,7 +65,6 @@
             <v-btn-toggle 
               background-color="accent"
               color="primary"
-              dense
               v-model="rollType">
               <v-btn value="lasers">Lasers</v-btn>
               <v-btn value="feelings">Feelings</v-btn>
@@ -73,11 +75,19 @@
               <v-btn-toggle 
                 background-color="accent"
                 color="primary"
-                dense
                 v-model="diceNum">
-                <v-btn value="1">1</v-btn>
-                <v-btn value="2">2</v-btn>
-                <v-btn value="3">3</v-btn>
+                <v-btn value="1">
+                  <v-icon>mdi-dice-1-outline</v-icon>
+                </v-btn>
+                <v-btn value="2">
+                  <v-icon>mdi-dice-1-outline</v-icon>
+                  <v-icon>mdi-dice-2-outline</v-icon>
+                </v-btn>
+                <v-btn value="3">
+                  <v-icon>mdi-dice-1-outline</v-icon>
+                  <v-icon>mdi-dice-2-outline</v-icon>
+                  <v-icon>mdi-dice-3-outline</v-icon>
+                </v-btn>
               </v-btn-toggle>
             </div>
           </v-card-text>
@@ -99,37 +109,37 @@
       </section>
     </transition>
 
-    <transition name="resultFade">
-      <section class="results" v-show="currentRolls.length">
+    <transition 
+      name="resultFade">
+      <section class="results" v-show="hasRolled">
         <v-card
           flat
           shaped
-          outlined
+          elevation="0"
           class="mb-6">
           <v-card-text>
             <p class="rolls mt-3 mb-3">
               <span v-for="(dice, index) in currentRolls" :key="index">
-                <v-icon x-large>mdi-dice-{{ dice.roll }}-outline</v-icon>
+                <v-icon left x-large :color="dice.result">mdi-dice-{{ dice.roll }}-outline</v-icon>
               </span>
             </p>
             <p class="outcome headline mt-3 mb-3" v-html="showOutcome"></p>
             <p class="laserfeelings headline mt-3 mb-3" v-if="hasLaserFeelings">And you've got <em class="win">Laser Feelings</em>!</p>
           </v-card-text>
         </v-card>
-
-          <v-btn 
-            class="mb-2"
-            x-large 
-            shaped
-            block
-            elevation="4"
-            color="info"
-            @click="resetCurrentRolls()">
-            New Roll
-          </v-btn>
+        <v-btn 
+          class="mb-2"
+          x-large 
+          shaped
+          block
+          elevation="4"
+          color="info"
+          @click="doTransition()">
+          New Roll
+        </v-btn>
       </section>
     </transition>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -141,11 +151,12 @@
       diceNum: null,
       currentRolls: [],
       outcomeText: [
-        "Oh no, it's a <em class='failure'>total failure</em>!",
+        "Oh no, it's a <em class='fail'>total failure</em>!",
         "It's a... <em class='mixed'>mixed success</em>.",
         "Huzzah, you did it.",
         "Holy <em>$#!%</em>, it's a <strong class='win'>critical success</strong>!!",
       ],
+      hasRolled: false,
     }),
     computed: {
       hasRollType () {
@@ -155,7 +166,7 @@
         return (this.diceNum) ? true : false
       },
       showOutcome () {
-        const successes = this.currentRolls.filter(item => item.result === 'Success')
+        const successes = this.currentRolls.filter(item => item.result === 'success')
         return this.outcomeText[successes.length]
       },
       hasLaserFeelings () {
@@ -173,13 +184,13 @@
           // determine roll result
           let result = null
           if (roll === this.targetNumber) {
-            result = 'Success'
+            result = 'success'
           }
           else if (roll > this.targetNumber) {
-            result = (this.rollType === 'feelings') ? 'Success' : 'Failure'
+            result = (this.rollType === 'feelings') ? 'success' : 'failure'
           }
           else if (roll < this.targetNumber) {
-            result = (this.rollType === 'lasers') ? 'Success' : 'Failure'
+            result = (this.rollType === 'lasers') ? 'success' : 'failure'
           }
           // add outcome to currentRolls tally
           this.currentRolls.push({
@@ -187,13 +198,21 @@
             result: result
           })
         }
+        // transition to outcome
+        this.doTransition()
         // log the rolls to console
         console.log(`rolls:`, this.currentRolls)
       },
-      resetCurrentRolls () {
+      doTransition () {
+        this.hasRolled = !this.hasRolled
+      },
+      resetInputs () {
         // reset form to start over
         this.rollType = null
         this.diceNum = null
+      },
+      resetCurrentRolls () {
+        // reset rolls to start over
         this.currentRolls = []
       },
       decrement () {
@@ -208,13 +227,13 @@
   }
 </script>
 <style lang="scss" scoped>
-  main {
+  .lasers-feelings {
     max-width: 580px;
     margin: 0 auto;
-    padding: 1em;
-  }
-  section {
-    margin: 2em 0;
+    position: relative;
+    section {
+      margin: 2rem 0.75rem;
+    }
   }
 
   .slider {
@@ -226,12 +245,6 @@
 
   .results {
     .rolls {
-      max-width: 60%;
-      display: flex;
-      justify-content: space-between;
-      @media (min-width: 500px) {
-        max-width: 45%;
-      }
       .v-icon {
         font-size: 60px !important;
       }
@@ -245,9 +258,15 @@
     }
   }
 
-  // .rollFade-leave {
-  //   transition-delay: 0.6s, 0;
-  // }
+  .rollFade-enter-to {
+    transition-delay: 0.6s;
+    position: static;
+    height: auto;
+  }
+  .rollFade-enter {
+    position: absolute;
+    height: 0;
+  }
   .rollFade-enter-active, 
   .rollFade-leave-active {
     transition-property: opacity, transform;
@@ -256,7 +275,7 @@
   .rollFade-enter, 
   .rollFade-leave-to {
     opacity: 0;
-    transform: translateY(-100%);
+    transform: translateY(-50%);
   }
   .resultFade-enter-to {
     transition-delay: 0.6s;
@@ -266,11 +285,15 @@
     transition-property: opacity, transform;
     transition-duration: 0.6s;
   }
+  .resultFade-leave-active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
   .resultFade-enter, 
   .resultFade-leave-to {
     opacity: 0;
-  }
-  .resultFade-leave-to {
     transform: translateY(50%);
   }
 </style>

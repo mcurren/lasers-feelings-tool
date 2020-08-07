@@ -11,7 +11,10 @@
 
       <v-spacer></v-spacer>
 
-      <v-dialog v-model="dialog" scrollable fullscreen max-width="300px">
+      <v-dialog 
+        v-model="dialog" 
+        scrollable 
+        max-width="500px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn 
             fab
@@ -23,7 +26,8 @@
             <v-icon>mdi-head-question-outline</v-icon>
           </v-btn>
         </template>
-        <v-card>
+        <v-card
+          tile>
           <v-card-title>What the what?</v-card-title>
           <v-divider></v-divider>
           <v-card-text>
@@ -55,7 +59,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text color="primary" @click="dialog = false">Ok, let me roll!</v-btn>
+            <v-btn text color="primary" @click="dialog = false">Ok, let's roll!</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -64,6 +68,17 @@
     <v-main>
       <HelloWorld/>
     </v-main>
+
+    <v-footer
+      dark
+      app
+      flat
+      color="transparent">
+      <div class="footer-links">
+        <a href="https://curren.me" target="_blank">author</a>
+        <a href="https://github.com/mcurren/lasers-feelings-tool" target="_blank">github</a>
+      </div>
+    </v-footer>
   </v-app>
 </template>
 
@@ -109,7 +124,7 @@ export default {
     .win {
       color: #01a8a5;
     }
-    .failure {
+    .fail {
       color: #d4396f;
     }
     em, strong {
@@ -120,6 +135,17 @@ export default {
   .hide-xs {
     @media (max-width: 459px) {
       display: none;
+    }
+  }
+  .footer-links {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    a {
+      display: inline-block;
+      color: white !important;
+      text-decoration: none;
+      padding: 0.5rem;
     }
   }
 </style>
