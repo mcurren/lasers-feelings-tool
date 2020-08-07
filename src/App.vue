@@ -75,8 +75,8 @@
       flat
       color="transparent">
       <div class="footer-links">
-        <a href="https://curren.me" target="_blank">author</a>
         <a href="https://github.com/mcurren/lasers-feelings-tool" target="_blank">github</a>
+        <a href="http://onesevendesign.com/lasers_and_feelings_rpg.pdf" target="_blank">l&f rules</a>
       </div>
     </v-footer>
   </v-app>
@@ -99,10 +99,15 @@ export default {
 <style lang="scss">
 body {
   touch-action: manipulation;
-}
-.theme--light > .v-application--wrap {
   background: lighten(#fab864, 28%);
-  background: linear-gradient(0deg, rgba(90,16,120,0.9) 10%, rgba(177,59,191,0.9) 45%, rgba(250,184,100,0.9) 100%);
+  background: linear-gradient(0deg, rgba(90,16,120,1) 10%, rgba(177,59,191,1) 45%, rgba(250,184,100,1) 100%);
+}
+
+.v-application--wrap {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+.theme--light.v-application {
+  background: none transparent !important;
 }
 .theme--light.v-icon {
   color: rgba(0,8,37,0.74);
