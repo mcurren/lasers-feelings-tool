@@ -31,10 +31,6 @@
                   color="#f7edfd"
                   @click="decrement"
                   class="slider-button">
-                  <!-- <v-icon
-                    color="secondary">
-                    mdi-minus
-                  </v-icon> -->
                   <v-icon
                     color="error">
                     mdi-heart
@@ -53,10 +49,6 @@
                     color="success">
                     mdi-brain
                   </v-icon>
-                  <!-- <v-icon
-                    color="secondary">
-                    mdi-plus
-                  </v-icon> -->
                 </v-btn>
               </template>
              </v-slider>
@@ -70,7 +62,7 @@
               <v-btn value="feelings">Feelings</v-btn>
             </v-btn-toggle>
 
-            <div v-show="hasRollType">
+            <div v-show="rollType">
               <h3 class="overline mb-0 mt-3">Number Of Dice</h3>
               <v-btn-toggle 
                 background-color="accent"
@@ -94,7 +86,7 @@
 
           <v-card-actions>
             <v-btn
-              v-show="hasRollType && hasDiceNum"
+              v-show="rollType && diceNum"
               class="mb-2"
               x-large 
               rounded
@@ -120,10 +112,10 @@
           <v-card-text>
             <p class="rolls mt-3 mb-3">
               <span v-for="(dice, index) in currentRolls" :key="index">
-                <v-icon left x-large :color="dice.result">mdi-dice-{{ dice.roll }}-outline</v-icon>
+                <v-icon left x-large :color="dice.color">mdi-dice-{{ dice.roll }}-outline</v-icon>
               </span>
             </p>
-            <p class="outcome headline mt-3 mb-3" v-html="showOutcome"></p>
+            <p class="outcome headline mt-3 mb-3" v-html="outcomeText"></p>
             <p class="laserfeelings headline mt-3 mb-3" v-if="hasLaserFeelings">And you've got <em class="win">Laser Feelings</em>!</p>
           </v-card-text>
         </v-card>
@@ -139,6 +131,26 @@
         </v-btn>
       </section>
     </transition>
+
+    <v-snackbar
+      light
+      multiline
+      elevation="1"
+      timeout="6000"
+      color="warning"
+      transition="slide-y-reverse-transition"
+      v-model="alert.show">
+      {{ alert.text }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="secondary"
+          text
+          v-bind="attrs"
+          @click="alert.show = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -150,52 +162,61 @@
       rollType: null,
       diceNum: null,
       currentRolls: [],
-      outcomeText: [
-        "Oh no, it's a <em class='fail'>total failure</em>!",
-        "It's a... <em class='mixed'>mixed success</em>.",
-        "Huzzah, you did it.",
-        "Holy <em>$#!%</em>, it's a <strong class='win'>critical success</strong>!!",
-      ],
+      successesText: {
+        0: "Oh no, it's a <em class='fail'>total failure</em>!",
+        1: "It's a... <em class='mixed'>mixed success</em>.",
+        2: "Huzzah, you did it.",
+        3: "Holy <em>$#!%</em>, it's a <strong class='win'>critical success</strong>!!",
+      },
       hasRolled: false,
+      alert: {
+        show: false,
+        text: null
+      }
     }),
+    mounted () {
+      // load data from local storage if available
+      const number = localStorage.getItem('targetNumber')
+      if (number) {
+        this.targetNumber = number
+        // alert the user
+        this.alert.text = `Loaded your most recent character number (${number}).`
+        this.alert.show = true
+      }
+    },
     computed: {
-      hasRollType () {
-        return (this.rollType) ? true : false
-      },
-      hasDiceNum () {
-        return (this.diceNum) ? true : false
-      },
-      showOutcome () {
-        const successes = this.currentRolls.filter(item => item.result === 'success')
-        return this.outcomeText[successes.length]
+      outcomeText () {
+        // get the correct flavor text from data
+        const successes = this.currentRolls.filter(item => item.success)
+        return this.successesText[successes.length]
       },
       hasLaserFeelings () {
+        // show laser feelings text if any roll equals the target number
         return (this.currentRolls.filter(item => item.roll === this.targetNumber).length) ? true : false
       },
     },
     methods: {
       rollDice () {
-        // reset current rolls
-        this.currentRolls = []
-        // do rolls
+        // loop through rolls needed
         for (let step = 0; step < parseInt(this.diceNum); step++) {
           // roll 1d6
           const roll = 1 + Math.floor(Math.random() * 6)
-          // determine roll result
-          let result = null
+          // determine roll success
+          let success = false
           if (roll === this.targetNumber) {
-            result = 'success'
+            success = true
           }
-          else if (roll > this.targetNumber) {
-            result = (this.rollType === 'feelings') ? 'success' : 'failure'
+          else if (this.rollType === 'feelings' && roll > this.targetNumber) {
+            success = true
           }
-          else if (roll < this.targetNumber) {
-            result = (this.rollType === 'lasers') ? 'success' : 'failure'
+          else if (this.rollType === 'lasers' && roll < this.targetNumber) {
+            success = true
           }
           // add outcome to currentRolls tally
           this.currentRolls.push({
             roll: roll,
-            result: result
+            success: success,
+            color: (success) ? '#01a8a5' : '#fab864'
           })
         }
         // transition to outcome
@@ -204,6 +225,7 @@
         console.log(`rolls:`, this.currentRolls)
       },
       doTransition () {
+        // switch between form & outcome
         this.hasRolled = !this.hasRolled
       },
       resetInputs () {
@@ -216,10 +238,12 @@
         this.currentRolls = []
       },
       decrement () {
+        // slider minus button
         if (this.targetNumber < 3) return
         this.targetNumber--
       },
       increment () {
+        // slider plus button
         if (this.targetNumber > 4) return
         this.targetNumber++
       },
@@ -227,17 +251,10 @@
     watch: {
       targetNumber: function (newNumber, oldNumber) {
         if (newNumber === oldNumber) return
-        // save target number to local storage
+        // save target number to local storage when changed
         localStorage.setItem('targetNumber', newNumber)
         console.log('target number saved.')
       },
-    },
-    mounted () {
-      const number = localStorage.getItem('targetNumber')
-      if (number) {
-        this.targetNumber = number
-        console.log('target number recovered.')
-      }
     },
   }
 </script>
