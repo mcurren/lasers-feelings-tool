@@ -40,7 +40,7 @@
               <v-expansion-panel>
                 <v-expansion-panel-header>The Roll</v-expansion-panel-header>
                 <v-expansion-panel-content>
-                  <p><strong>Step 1</strong> - Set your character's Lasers/Feelings number by dragging the slider or clicking on the <span style="white-space: nowrap;">feelings (<v-icon small color="error">mdi-heart</v-icon>)</span> or <span style="white-space: nowrap;">lasers (<v-icon small color="success">mdi-brain</v-icon>)</span> buttons on either side of the slider. The app should remember your set number for future rolls as long as you don't reload the page.</p>
+                  <p><strong>Step 1</strong> - Set your character's Lasers/Feelings number by dragging the slider or clicking on the <span style="white-space: nowrap;">feelings (<v-icon small color="error">mdi-heart</v-icon>)</span> or <span style="white-space: nowrap;">lasers (<v-icon small color="success">mdi-brain</v-icon>)</span> buttons on either side of the slider.</p>
                   <p><strong>Step 2</strong> - Select if you're using Lasers or Feelings for the action you are rolling for.</p>
                   <p><strong>Step 3</strong> - Select the number of dice you are rolling for this action. This is probably determined by a discussion with the GM based on the situation.</p>
                   <p><strong>Step 4</strong> - Click the <em>ROLL</em> button to see the outcome of your rolls.</p>
@@ -66,7 +66,7 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <Main/>
     </v-main>
 
     <v-footer
@@ -83,12 +83,12 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Main from './components/Main';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    Main,
   },
   data: () => ({
     dialog: false,

@@ -144,7 +144,7 @@
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: 'Main',
     data: () => ({
       targetNumber: 3,
       rollType: null,
@@ -223,7 +223,22 @@
         if (this.targetNumber > 4) return
         this.targetNumber++
       },
-    }
+    },
+    watch: {
+      targetNumber: function (newNumber, oldNumber) {
+        if (newNumber === oldNumber) return
+        // save target number to local storage
+        localStorage.setItem('targetNumber', newNumber)
+        console.log('target number saved.')
+      },
+    },
+    mounted () {
+      const number = localStorage.getItem('targetNumber')
+      if (number) {
+        this.targetNumber = number
+        console.log('target number recovered.')
+      }
+    },
   }
 </script>
 <style lang="scss" scoped>
@@ -235,14 +250,9 @@
       margin: 2rem 0.75rem;
     }
   }
-
   .slider {
     align-items: center;
   }
-  // .slider-button {
-  //   padding: 0 !important;
-  // }
-
   .results {
     .rolls {
       .v-icon {
@@ -258,6 +268,7 @@
     }
   }
 
+  // custom transitions
   .rollFade-enter-to {
     transition-delay: 0.6s;
     position: static;
