@@ -69,16 +69,22 @@
                 color="primary"
                 v-model="diceNum">
                 <v-btn value="1">
-                  <v-icon>mdi-dice-1-outline</v-icon>
+                  <!-- <v-icon>mdi-dice-1-outline</v-icon> -->
+                  One
                 </v-btn>
                 <v-btn value="2">
-                  <v-icon>mdi-dice-1-outline</v-icon>
-                  <v-icon>mdi-dice-2-outline</v-icon>
+                  Two
+                  <!-- <v-icon>mdi-dice-1-outline</v-icon>
+                  <v-icon>mdi-dice-2-outline</v-icon> -->
                 </v-btn>
                 <v-btn value="3">
-                  <v-icon>mdi-dice-1-outline</v-icon>
+                  Three
+                  <!-- <v-icon>mdi-dice-1-outline</v-icon>
                   <v-icon>mdi-dice-2-outline</v-icon>
-                  <v-icon>mdi-dice-3-outline</v-icon>
+                  <v-icon>mdi-dice-3-outline</v-icon> -->
+                </v-btn>
+                <v-btn value="4">
+                  Four
                 </v-btn>
               </v-btn-toggle>
             </div>
@@ -112,11 +118,14 @@
           <v-card-text>
             <p class="rolls mt-3 mb-3">
               <span v-for="(dice, index) in currentRolls" :key="index">
-                <v-icon left x-large :color="dice.color">mdi-dice-{{ dice.roll }}-outline</v-icon>
+                <v-icon left x-large :color="dice.color">mdi-dice-{{ dice.number }}-outline</v-icon>
               </span>
             </p>
-            <p class="outcome headline mt-3 mb-3" v-html="outcomeText"></p>
-            <p class="laserfeelings headline mt-3 mb-3" v-if="hasLaserFeelings">And you've got <em class="win">Laser Feelings</em>!</p>
+            <div class="outcome headline mt-3 mb-3" v-html="outcomeText"></div>
+            <div class="headline mt-3 mb-3" v-if="hasLaserFeelings">
+              <p class="laserfeelings">You have <em class="success--text">Laser Feelings</em>!</p>
+              <p class="rules">You get a special insight into what’s going on. Ask the GM a question and they’ll answer you honestly.</p>
+            </div>
           </v-card-text>
         </v-card>
         <v-btn 
@@ -134,7 +143,7 @@
 
     <v-snackbar
       light
-      multiline
+      multiLine
       elevation="1"
       timeout="6000"
       color="warning"
@@ -162,11 +171,23 @@
       rollType: null,
       diceNum: null,
       currentRolls: [],
-      successesText: {
-        0: "Oh no, it's a <em class='fail'>total failure</em>!",
-        1: "It's a... <em class='mixed'>mixed success</em>.",
-        2: "Huzzah, you did it.",
-        3: "Holy <em>$#!%</em>, it's a <strong class='win'>critical success</strong>!!",
+      outcomes: {
+        0: {
+          flavor: "<strong class='error--text'>Oh no!</strong>",
+          rules: "It goes wrong. The GM says how things get worse somehow.",
+        },
+        1: {
+          flavor: "<strong class='warning--text'>Meh...</strong>",
+          rules: "You barely manage it. The GM inflicts a complication, harm, or cost.",
+        },
+        2: {
+          flavor: "<strong class='success--text'>Huzzah!</strong>",
+          rules: "You do it well.",
+        },
+        3: {
+          flavor: "<strong class='success--text'>Holy smokes!!</strong>",
+          rules: "You get a critical success. The GM tells you some extra effect you get.",
+        },
       },
       hasRolled: false,
       alert: {
@@ -188,36 +209,43 @@
       outcomeText () {
         // get the correct flavor text from data
         const successes = this.currentRolls.filter(item => item.success)
-        return this.successesText[successes.length]
+        const index = (successes.length > 3) ? 3 : successes.length
+        const outcome = this.outcomes[index]
+        return `<p class="flavor">${outcome.flavor}</p><p class="rules">${outcome.rules}</p>`
       },
       hasLaserFeelings () {
         // show laser feelings text if any roll equals the target number
-        return (this.currentRolls.filter(item => item.roll === this.targetNumber).length) ? true : false
+        return (this.currentRolls.filter(item => item.number === this.targetNumber).length) ? true : false
       },
     },
     methods: {
       rollDice () {
+        let totalRolls = parseInt(this.diceNum)
         // loop through rolls needed
-        for (let step = 0; step < parseInt(this.diceNum); step++) {
+        for (let step = 0; step < totalRolls; step++) {
           // roll 1d6
-          const roll = 1 + Math.floor(Math.random() * 6)
+          let roll = {
+            number: 1 + Math.floor(Math.random() * 6)
+          }
           // determine roll success
-          let success = false
-          if (roll === this.targetNumber) {
-            success = true
+          if (roll.number === this.targetNumber) {
+            roll.success = true
+            roll.color = '#01a8a5'
           }
-          else if (this.rollType === 'feelings' && roll > this.targetNumber) {
-            success = true
+          else if (this.rollType === 'feelings' && roll.number > this.targetNumber) {
+            roll.success = true
+            roll.color = '#01a8a5'
           }
-          else if (this.rollType === 'lasers' && roll < this.targetNumber) {
-            success = true
+          else if (this.rollType === 'lasers' && roll.number < this.targetNumber) {
+            roll.success = true
+            roll.color = '#01a8a5'
+          }
+          else {
+            roll.success = false,
+            roll.color = '#d4396f'
           }
           // add outcome to currentRolls tally
-          this.currentRolls.push({
-            roll: roll,
-            success: success,
-            color: (success) ? '#01a8a5' : '#fab864'
-          })
+          this.currentRolls.push(roll)
         }
         // transition to outcome
         this.doTransition()
@@ -276,11 +304,16 @@
         font-size: 60px !important;
       }
     }
-    .outcome,
-    .laserfeelings {
+    .outcome {
       @media (max-width: 600px) {
         font-size: 1.3rem !important;
         line-height: 1.8rem;
+      }
+    }
+    .laserfeelings {
+      @media (max-width: 600px) {
+        font-size: 1.15rem !important;
+        line-height: 1.6rem;
       }
     }
   }

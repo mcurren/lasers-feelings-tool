@@ -63,17 +63,25 @@ body {
 }
 // results styles - needs to avoid scoping???
 .results {
-  .mixed {
-    color: darken(#fab864, 15%);
-  }
-  .win {
-    color: #01a8a5;
-  }
-  .fail {
-    color: #d4396f;
-  }
   em, strong {
     white-space: nowrap;
+  }
+  .flavor {
+    font-size: 1.1em;
+  }
+  .rules {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: rgba(#000825, 0.75);
+    margin-top: -10px;
+    padding-left: 8px;
+    border-left: 3px solid rgba(#000825, 0.3);
+    // &:before {
+    //   content: '"'
+    // }
+    // &:after {
+    //   content: '"'
+    // }
   }
 }
 // vuetify overrides
