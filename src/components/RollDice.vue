@@ -329,9 +329,21 @@ export default {
     doTransition () {
       // switch between form & outcome
       this.hasRolled = !this.hasRolled
-      // do confetti on successful roll
-      if (this.hasRolled && this.successes > 1) {
-        this.doConfetti()
+      // emit events on transition
+      if (this.hasRolled) {
+        if (this.successes > 1) {
+          this.$emit('updateOutcome', 'success')
+          this.doConfetti()
+        }
+        else if (this.successes === 1) {
+          this.$emit('updateOutcome', 'mixed')
+        }
+        else {
+          this.$emit('updateOutcome', 'failure')
+        }
+      }
+      else {
+        this.$emit('updateOutcome', null)
       }
     },
     resetInputs () {

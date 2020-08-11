@@ -102,6 +102,8 @@ export default {
     },
   },
   mounted () {
+    // reset outcome from rolls
+    this.$emit('updateOutcome', null)
     // load data from local storage if available
     const arr = JSON.parse(localStorage.getItem('missionRolls'))
     if (arr) {

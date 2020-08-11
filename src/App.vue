@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :class="appBgClass">
     <!-- header -->
     <v-app-bar app elevation="1" dark color="primary">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -12,9 +12,7 @@
 
     <!-- content -->
     <v-main>
-      <div id="content">
-        <router-view/>
-      </div>
+      <router-view id="content" @updateOutcome="updateOutcome"/>
     </v-main>
 
     <!-- nav -->
@@ -58,8 +56,19 @@ export default {
   },
   data: () => ({
     drawer: false,
-    group: null
+    group: null,
+    outcome: null,
   }),
+  computed: {
+    appBgClass () {
+      return (this.outcome) ? `bg--${this.outcome}` : false
+    },
+  },
+  methods: {
+    updateOutcome (outcome) {
+      this.outcome = outcome
+    }
+  },
 };
 </script>
 
@@ -74,7 +83,19 @@ export default {
 body {
   touch-action: manipulation;
   background: #5a1078;
-  background: linear-gradient(0deg, rgba(90,16,120,1) 10%, rgba(177,59,191,1) 45%, rgba(250,184,100,1) 100%);
+}
+#app {
+  background: linear-gradient(0deg, rgba(90,16,120,1) 10%, rgba(177,59,191,1) 45%, rgba(250,184,100,1) 100%) !important;
+  transition: background 0.6s;
+  &.bg--success {
+    background: rgba(#01a8a5,1) !important;
+  }
+  &.bg--mixed {
+    background: rgba(#fab864,1) !important;
+  }
+  &.bg--failure {
+    background: rgba(#d4396f,1) !important;
+  }
 }
 #nav {
   padding: 30px;

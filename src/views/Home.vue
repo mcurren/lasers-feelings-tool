@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <RollDice/>
+    <RollDice @updateOutcome="updateOutcome"/>
   </div>
 </template>
 
@@ -11,6 +11,11 @@ export default {
   name: 'Home',
   components: {
     RollDice
-  }
+  },
+  methods: {
+    updateOutcome (outcome) {
+      this.$emit('updateOutcome', outcome)
+    },
+  },
 }
 </script>
