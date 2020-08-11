@@ -1,5 +1,5 @@
 <template>
-  <div class="lasers-feelings">
+  <div>
     <transition 
       name="rollFade"
       @before-enter="resetInputs"
@@ -8,12 +8,11 @@
         <v-card
           flat
           shaped
-          max-width="600px"
           elevation="0">
           <v-card-text>
             <h3 class="overline mb-3 mt-0">
               <span>Character Number</span> 
-              <NumberDialog/>
+              <DialogNumber/>
             </h3>
             <v-slider
               v-model="targetNumber"
@@ -58,7 +57,7 @@
 
             <h3 class="overline mb-0">
               <span>Roll</span> 
-              <RollDialog/>
+              <DialogRoll/>
             </h3>
             <v-btn-toggle 
               background-color="accent"
@@ -71,7 +70,7 @@
             <div v-show="rollType">
               <h3 class="overline mb-0 mt-3">
                 <span>Number Of Dice</span> 
-                <DiceDialog/>
+                <DialogDice/>
               </h3>
               <v-btn-toggle 
                 background-color="accent"
@@ -93,7 +92,7 @@
               <div v-show="rollType && diceNum">
                 <h3 class="overline mb-0 mt-3">
                   <span>Number of Players Helping</span> 
-                  <HelpingDialog/>
+                  <DialogHelping/>
                 </h3>
                 <div class="helper-fields">
                   <v-btn
@@ -194,18 +193,18 @@
 </template>
 
 <script>
-import NumberDialog from '../components/NumberDialog';
-import RollDialog from '../components/RollDialog';
-import DiceDialog from '../components/DiceDialog';
-import HelpingDialog from '../components/HelpingDialog';
+import DialogNumber from '../components/DialogNumber';
+import DialogRoll from '../components/DialogRoll';
+import DialogDice from '../components/DialogDice';
+import DialogHelping from '../components/DialogHelping';
 
 export default {
-  name: 'Main',
+  name: 'RollDice',
   components: {
-    NumberDialog,
-    RollDialog,
-    DiceDialog,
-    HelpingDialog,
+    DialogNumber,
+    DialogRoll,
+    DialogDice,
+    DialogHelping,
   },
   data: () => ({
     targetNumber: 3,
@@ -325,7 +324,7 @@ export default {
         ],
         particlesPerFrame: 1,
       })
-      setTimeout(() => this.$confetti.stop(), 4000)
+      setTimeout(() => this.$confetti.stop(), 3000)
     },
     doTransition () {
       // switch between form & outcome
@@ -366,14 +365,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .lasers-feelings {
-    max-width: 580px;
-    margin: 0 auto;
-    position: relative;
-    section {
-      margin: 2rem 0.75rem;
-    }
-  }
   .overline {
     display: flex;
     align-items: center;

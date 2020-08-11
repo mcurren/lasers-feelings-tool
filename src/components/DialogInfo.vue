@@ -6,7 +6,7 @@
     <template v-slot:activator="{ on, attrs }">
       <v-btn 
         fab
-        small
+        x-small
         color="error"
         elevation="1"
         v-bind="attrs"

@@ -2,21 +2,45 @@
   <v-app>
     <!-- header -->
     <v-app-bar app elevation="1" dark color="primary">
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <div class="d-flex align-center">
         <h1 class="text-h6"><span class="hide-xs">Roll For</span> LASERS & FEELINGS</h1>
       </div>
       <v-spacer/>
-      <InfoDialog/>
+      <DialogInfo/>
     </v-app-bar>
 
     <!-- content -->
     <v-main>
-      <Main/>
+      <div id="content">
+        <router-view/>
+      </div>
     </v-main>
 
+    <!-- nav -->
+    <v-navigation-drawer
+      v-model="drawer"
+      fixed
+      temporary>
+      <v-list
+        nav>
+        <v-list-item-group
+          v-model="group"
+          active-class="primary--text text--accent-4">
+          <v-list-item to="/">
+            <v-list-item-title>Roll Dice</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item to="/mission">
+            <v-list-item-title>Generate Mission</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
     <!-- footer -->
-    <v-footer app flat absolute dark color="primary">
-      <div class="footer-links">
+    <v-footer app flat absolute dark color="transparent">
+      <div id="footer">
         <a href="https://github.com/mcurren/lasers-feelings-tool" title="Fork the repo on Github" target="_blank">github</a>
         <a href="http://onesevendesign.com/lasers_and_feelings_rpg.pdf" title="Lasers & Feelings RPG PDF" target="_blank">official rules</a>
       </div>
@@ -25,15 +49,17 @@
 </template>
 
 <script>
-import Main from './components/Main';
-import InfoDialog from './components/InfoDialog';
+import DialogInfo from '@/components/DialogInfo';
 
 export default {
   name: 'App',
   components: {
-    Main,
-    InfoDialog,
+    DialogInfo,
   },
+  data: () => ({
+    drawer: false,
+    group: null
+  }),
 };
 </script>
 
@@ -50,7 +76,25 @@ body {
   background: #5a1078;
   background: linear-gradient(0deg, rgba(90,16,120,1) 10%, rgba(177,59,191,1) 45%, rgba(250,184,100,1) 100%);
 }
-.footer-links {
+#nav {
+  padding: 30px;
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+#content {
+  max-width: 580px;
+  margin: 0 auto;
+  position: relative;
+  section {
+    margin: 2rem 0.75rem;
+  }
+}
+#footer {
   display: flex;
   flex: 1;
   justify-content: space-between;
