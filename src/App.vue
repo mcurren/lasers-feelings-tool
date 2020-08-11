@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <!-- header -->
-    <v-app-bar app flat dark color="primary">
+    <v-app-bar app elevation="1" dark color="primary">
       <div class="d-flex align-center">
         <h1 class="text-h6"><span class="hide-xs">Roll For</span> LASERS & FEELINGS</h1>
       </div>
@@ -15,7 +15,7 @@
     </v-main>
 
     <!-- footer -->
-    <v-footer app flat dark color="transparent">
+    <v-footer app flat absolute dark color="primary">
       <div class="footer-links">
         <a href="https://github.com/mcurren/lasers-feelings-tool" title="Fork the repo on Github" target="_blank">github</a>
         <a href="http://onesevendesign.com/lasers_and_feelings_rpg.pdf" title="Lasers & Feelings RPG PDF" target="_blank">official rules</a>
@@ -47,7 +47,7 @@ export default {
 // global styles
 body {
   touch-action: manipulation;
-  background: lighten(#fab864, 28%);
+  background: #5a1078;
   background: linear-gradient(0deg, rgba(90,16,120,1) 10%, rgba(177,59,191,1) 45%, rgba(250,184,100,1) 100%);
 }
 .footer-links {

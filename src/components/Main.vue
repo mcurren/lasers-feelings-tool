@@ -11,7 +11,10 @@
           max-width="600px"
           elevation="0">
           <v-card-text>
-            <h3 class="overline mb-3 mt-0">Character Number</h3>
+            <h3 class="overline mb-3 mt-0">
+              <span>Character Number</span> 
+              <NumberDialog/>
+            </h3>
             <v-slider
               v-model="targetNumber"
               thumb-label="always"
@@ -29,7 +32,7 @@
                   small
                   elevation="0"
                   color="#f7edfd"
-                  @click="decrement"
+                  @click="decrement('targetNumber', 2)"
                   class="slider-button">
                   <v-icon
                     color="error">
@@ -43,7 +46,7 @@
                   small
                   elevation="0"
                   color="#f7edfd"
-                  @click="increment"
+                  @click="increment('targetNumber', 5)"
                   class="slider-button">
                   <v-icon
                     color="success">
@@ -53,7 +56,10 @@
               </template>
              </v-slider>
 
-            <h3 class="overline mb-0">Roll</h3>
+            <h3 class="overline mb-0">
+              <span>Roll</span> 
+              <RollDialog/>
+            </h3>
             <v-btn-toggle 
               background-color="accent"
               color="primary"
@@ -63,30 +69,54 @@
             </v-btn-toggle>
 
             <div v-show="rollType">
-              <h3 class="overline mb-0 mt-3">Number Of Dice</h3>
+              <h3 class="overline mb-0 mt-3">
+                <span>Number Of Dice</span> 
+                <DiceDialog/>
+              </h3>
               <v-btn-toggle 
                 background-color="accent"
                 color="primary"
                 v-model="diceNum">
                 <v-btn value="1">
-                  <!-- <v-icon>mdi-dice-1-outline</v-icon> -->
-                  One
+                  <v-icon>mdi-dice-1-outline</v-icon>
                 </v-btn>
                 <v-btn value="2">
-                  Two
-                  <!-- <v-icon>mdi-dice-1-outline</v-icon>
-                  <v-icon>mdi-dice-2-outline</v-icon> -->
+                  <v-icon>mdi-dice-1-outline</v-icon>
+                  <v-icon>mdi-dice-2-outline</v-icon>
                 </v-btn>
                 <v-btn value="3">
-                  Three
-                  <!-- <v-icon>mdi-dice-1-outline</v-icon>
+                  <v-icon>mdi-dice-1-outline</v-icon>
                   <v-icon>mdi-dice-2-outline</v-icon>
-                  <v-icon>mdi-dice-3-outline</v-icon> -->
-                </v-btn>
-                <v-btn value="4">
-                  Four
+                  <v-icon>mdi-dice-3-outline</v-icon>
                 </v-btn>
               </v-btn-toggle>
+              <div v-show="rollType && diceNum">
+                <h3 class="overline mb-0 mt-3">
+                  <span>Number of Players Helping</span> 
+                  <HelpingDialog/>
+                </h3>
+                <div class="helper-fields">
+                  <v-btn
+                    fab
+                    x-small
+                    elevation="0"
+                    color="#f7edfd"
+                    @click="decrement('helperNum', 0)">
+                    <v-icon>mdi-minus</v-icon>
+                  </v-btn>
+                  <div class="helper-count">
+                    <span>{{ helperNum }}</span>
+                  </div>
+                  <v-btn
+                    fab
+                    x-small
+                    elevation="0"
+                    color="#f7edfd"
+                    @click="increment('helperNum', 19)">
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>
+                </div>
+              </div>
             </div>
           </v-card-text>
 
@@ -164,127 +194,142 @@
 </template>
 
 <script>
-  export default {
-    name: 'Main',
-    data: () => ({
-      targetNumber: 3,
-      rollType: null,
-      diceNum: null,
-      currentRolls: [],
-      outcomes: {
-        0: {
-          flavor: "<strong class='error--text'>Oh no!</strong>",
-          rules: "It goes wrong. The GM says how things get worse somehow.",
-        },
-        1: {
-          flavor: "<strong class='warning--text'>Meh...</strong>",
-          rules: "You barely manage it. The GM inflicts a complication, harm, or cost.",
-        },
-        2: {
-          flavor: "<strong class='success--text'>Huzzah!</strong>",
-          rules: "You do it well.",
-        },
-        3: {
-          flavor: "<strong class='success--text'>Holy smokes!!</strong>",
-          rules: "You get a critical success. The GM tells you some extra effect you get.",
-        },
+import NumberDialog from '../components/NumberDialog';
+import RollDialog from '../components/RollDialog';
+import DiceDialog from '../components/DiceDialog';
+import HelpingDialog from '../components/HelpingDialog';
+
+export default {
+  name: 'Main',
+  components: {
+    NumberDialog,
+    RollDialog,
+    DiceDialog,
+    HelpingDialog,
+  },
+  data: () => ({
+    targetNumber: 3,
+    rollType: null,
+    diceNum: null,
+    helperNum: 0,
+    currentRolls: [],
+    outcomes: {
+      0: {
+        flavor: "<strong class='error--text'>Oh no!</strong>",
+        rules: "It goes wrong. The GM says how things get worse somehow.",
       },
-      hasRolled: false,
-      alert: {
-        show: false,
-        text: null
-      }
-    }),
-    mounted () {
-      // load data from local storage if available
-      const number = localStorage.getItem('targetNumber')
-      if (number) {
-        this.targetNumber = number
-        // alert the user
-        this.alert.text = `Loaded your most recent character number (${number}).`
-        this.alert.show = true
-      }
-    },
-    computed: {
-      outcomeText () {
-        // get the correct flavor text from data
-        const successes = this.currentRolls.filter(item => item.success)
-        const index = (successes.length > 3) ? 3 : successes.length
-        const outcome = this.outcomes[index]
-        return `<p class="flavor">${outcome.flavor}</p><p class="rules">${outcome.rules}</p>`
+      1: {
+        flavor: "<strong class='warning--text'>Meh...</strong>",
+        rules: "You barely manage it. The GM inflicts a complication, harm, or cost.",
       },
-      hasLaserFeelings () {
-        // show laser feelings text if any roll equals the target number
-        return (this.currentRolls.filter(item => item.number === this.targetNumber).length) ? true : false
+      2: {
+        flavor: "<strong class='success--text'>Huzzah!</strong>",
+        rules: "You do it well.",
+      },
+      3: {
+        flavor: "<strong class='success--text'>Holy smokes!!</strong>",
+        rules: "You get a critical success. The GM tells you some extra effect you get.",
       },
     },
-    methods: {
-      rollDice () {
-        let totalRolls = parseInt(this.diceNum)
-        // loop through rolls needed
-        for (let step = 0; step < totalRolls; step++) {
-          // roll 1d6
-          let roll = {
-            number: 1 + Math.floor(Math.random() * 6)
-          }
-          // determine roll success
-          if (roll.number === this.targetNumber) {
-            roll.success = true
-            roll.color = '#01a8a5'
-          }
-          else if (this.rollType === 'feelings' && roll.number > this.targetNumber) {
-            roll.success = true
-            roll.color = '#01a8a5'
-          }
-          else if (this.rollType === 'lasers' && roll.number < this.targetNumber) {
-            roll.success = true
-            roll.color = '#01a8a5'
-          }
-          else {
-            roll.success = false,
-            roll.color = '#d4396f'
-          }
-          // add outcome to currentRolls tally
-          this.currentRolls.push(roll)
+    hasRolled: false,
+    alert: {
+      show: false,
+      text: null
+    },
+  }),
+  mounted () {
+    // load data from local storage if available
+    const number = localStorage.getItem('targetNumber')
+    if (number) {
+      this.targetNumber = number
+      // alert the user
+      this.alert.text = `Loaded your most recent character number (${number}).`
+      this.alert.show = true
+    }
+  },
+  computed: {
+    totalDice () {
+      return parseInt(this.diceNum) + this.helperNum
+    },
+    outcomeText () {
+      // get the correct flavor text from data
+      const successes = this.currentRolls.filter(item => item.success)
+      const index = (successes.length > 3) ? 3 : successes.length
+      const outcome = this.outcomes[index]
+      return `<p class="flavor">${outcome.flavor}</p><p class="rules">${outcome.rules}</p>`
+    },
+    hasLaserFeelings () {
+      // show laser feelings text if any roll equals the target number
+      return (this.currentRolls.filter(item => item.number === this.targetNumber).length) ? true : false
+    },
+  },
+  methods: {
+    rollDice () {
+      // loop through rolls needed
+      for (let step = 0; step < this.totalDice; step++) {
+        // roll 1d6
+        let roll = {
+          number: 1 + Math.floor(Math.random() * 6)
         }
-        // transition to outcome
-        this.doTransition()
-        // log the rolls to console
-        console.log(`rolls:`, this.currentRolls)
-      },
-      doTransition () {
-        // switch between form & outcome
-        this.hasRolled = !this.hasRolled
-      },
-      resetInputs () {
-        // reset form to start over
-        this.rollType = null
-        this.diceNum = null
-      },
-      resetCurrentRolls () {
-        // reset rolls to start over
-        this.currentRolls = []
-      },
-      decrement () {
-        // slider minus button
-        if (this.targetNumber < 3) return
-        this.targetNumber--
-      },
-      increment () {
-        // slider plus button
-        if (this.targetNumber > 4) return
-        this.targetNumber++
-      },
+        // determine roll success
+        if (roll.number === this.targetNumber) {
+          roll.success = true
+          roll.color = '#01a8a5'
+        }
+        else if (this.rollType === 'feelings' && roll.number > this.targetNumber) {
+          roll.success = true
+          roll.color = '#01a8a5'
+        }
+        else if (this.rollType === 'lasers' && roll.number < this.targetNumber) {
+          roll.success = true
+          roll.color = '#01a8a5'
+        }
+        else {
+          roll.success = false,
+          roll.color = '#d4396f'
+        }
+        // add outcome to currentRolls tally
+        this.currentRolls.push(roll)
+      }
+      // transition to outcome
+      this.doTransition()
+      // log the rolls to console
+      console.log(`rolls:`, this.currentRolls)
     },
-    watch: {
-      targetNumber: function (newNumber, oldNumber) {
-        if (newNumber === oldNumber) return
-        // save target number to local storage when changed
-        localStorage.setItem('targetNumber', newNumber)
-        console.log('target number saved.')
-      },
+    doTransition () {
+      // switch between form & outcome
+      this.hasRolled = !this.hasRolled
     },
-  }
+    resetInputs () {
+      // reset form to start over
+      this.rollType = null
+      this.diceNum = null
+      this.helperNum = 0
+    },
+    resetCurrentRolls () {
+      // reset rolls to start over
+      this.currentRolls = []
+    },
+    decrement (field, min) {
+      // minus button
+      if (this[field] === min) return
+      this[field]--
+    },
+    increment (field, max) {
+      // plus button
+      if (this[field] === max) return
+      this[field]++
+    },
+  },
+  watch: {
+    targetNumber: function (newNumber, oldNumber) {
+      if (newNumber === oldNumber) return
+      // save target number to local storage when changed
+      localStorage.setItem('targetNumber', newNumber)
+      console.log('target number saved.')
+    },
+  },
+}
 </script>
 <style lang="scss" scoped>
   .lasers-feelings {
@@ -295,8 +340,27 @@
       margin: 2rem 0.75rem;
     }
   }
+  .overline {
+    display: flex;
+    align-items: center;
+    & > span {
+      margin-right: 12px;
+    }
+  }
   .slider {
     align-items: center;
+  }
+  .helper-fields {
+    display: flex;
+    .helper-count {
+      margin: 0 12px;
+      width: 40px;
+      font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
   .results {
     .rolls {
