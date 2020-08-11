@@ -251,10 +251,13 @@ export default {
     totalDice () {
       return parseInt(this.diceNum) + this.helperNum
     },
+    successes () {
+      const successes = this.currentRolls.filter(item => item.success)
+      return successes.length
+    },
     outcomeText () {
       // get the correct flavor text from data
-      const successes = this.currentRolls.filter(item => item.success)
-      const index = (successes.length > 3) ? 3 : successes.length
+      const index = (this.successes > 3) ? 3 : this.successes
       const outcome = this.outcomes[index]
       return `<p class="flavor">${outcome.flavor}</p><p class="rules">${outcome.rules}</p>`
     },
@@ -296,9 +299,41 @@ export default {
       // log the rolls to console
       console.log(`rolls:`, this.currentRolls)
     },
+    doConfetti () {
+      this.$confetti.start({
+        particles: [
+          {
+            type: 'rect',
+          },
+          {
+            type: 'circle',
+          },
+          {
+            type: 'heart',
+            colors: ['#d4396f'],
+            size: 10,
+          },
+        ],
+        defaultSize: 8,
+        defaultDropRate: 8,
+        defaultColors: [
+          '#5a1078',
+          '#8BC4FE',
+          '#b13bbf',
+          '#01a8a5',
+          '#fab864',
+        ],
+        particlesPerFrame: 1,
+      })
+      setTimeout(() => this.$confetti.stop(), 4000)
+    },
     doTransition () {
       // switch between form & outcome
       this.hasRolled = !this.hasRolled
+      // do confetti on successful roll
+      if (this.hasRolled && this.successes > 1) {
+        this.doConfetti()
+      }
     },
     resetInputs () {
       // reset form to start over
@@ -322,11 +357,10 @@ export default {
     },
   },
   watch: {
+    // save target number to local storage on change
     targetNumber: function (newNumber, oldNumber) {
       if (newNumber === oldNumber) return
-      // save target number to local storage when changed
       localStorage.setItem('targetNumber', newNumber)
-      console.log('target number saved.')
     },
   },
 }

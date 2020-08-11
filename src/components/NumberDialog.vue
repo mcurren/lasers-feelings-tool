@@ -17,7 +17,9 @@
     <v-card
       tile>
       <v-card-text>
-        <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5. A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action). A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
+        <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5.</p>
+        <p>A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action).</p>
+        <p>A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>

@@ -17,7 +17,8 @@
     <v-card
       tile>
       <v-card-text>
-        <p style="margin-top:1rem;">If another player is helping you with this roll, they should say how they try to help. If they succeed, add <strong>+1d</strong>.</p>
+        <p style="margin-top:1rem;">If another player is helping you with this roll, they should say how they try to help.</p>
+        <p>If they succeed, add <strong>+1d</strong>.</p>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
