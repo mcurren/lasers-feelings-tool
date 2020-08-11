@@ -17,7 +17,7 @@
     <v-card
       tile>
       <v-card-text>
-        <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5.</p>
+        <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5, by dragging the slider or using the <v-icon small color="error">mdi-heart</v-icon>/<v-icon small color="success">mdi-brain</v-icon> buttons.</p>
         <p>A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action).</p>
         <p>A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
       </v-card-text>

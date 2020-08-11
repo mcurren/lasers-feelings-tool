@@ -20,7 +20,7 @@
       <v-divider></v-divider>
       <v-card-text>
         <p style="margin-top:1rem;">Want to play the popular one-page RPG <strong><a href="http://www.onesevendesign.com/laserfeelings/" title="Lasers & Feelings RPG" target="_blank">Lasers & Feelings</a></strong> but don't have any dice to roll? This app has got your back!</p>
-        <p>Having trouble using this app? See below:</p>
+        <!-- <p>Having trouble using this app? See below:</p>
         <v-expansion-panels
           flat
           tile>
@@ -41,7 +41,7 @@
               <p>Click the <em>NEW ROLL</em> button when you need to make your next roll in the game.</p>
             </v-expansion-panel-content>
           </v-expansion-panel>
-        </v-expansion-panels>
+        </v-expansion-panels> -->
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>

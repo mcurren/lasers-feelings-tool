@@ -39,8 +39,8 @@
     <!-- footer -->
     <v-footer app flat absolute dark color="transparent">
       <div id="footer">
-        <a href="https://github.com/mcurren/lasers-feelings-tool" title="Fork the repo on Github" target="_blank">github</a>
-        <a href="http://onesevendesign.com/lasers_and_feelings_rpg.pdf" title="Lasers & Feelings RPG PDF" target="_blank">official rules</a>
+        <a href="https://curren.me" title="Mike Curren Portfolio" target="_blank">author</a>
+        <a href="https://github.com/mcurren/lasers-feelings-tool" title="Fork the repo on Github" target="_blank">github repo</a>
       </div>
     </v-footer>
   </v-app>
