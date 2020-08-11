@@ -139,8 +139,8 @@ body {
     line-height: 1.4;
     color: rgba(#000825, 0.75);
     margin-top: -10px;
-    padding-left: 8px;
-    border-left: 3px solid rgba(#000825, 0.3);
+    // padding-left: 8px;
+    // border-left: 3px solid rgba(#000825, 0.3);
     // &:before {
     //   content: '"'
     // }

@@ -162,7 +162,7 @@
           x-large 
           shaped
           block
-          elevation="4"
+          elevation="2"
           color="info"
           @click="doTransition()">
           New Roll
