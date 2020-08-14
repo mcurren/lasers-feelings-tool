@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import Mission from '@/views/Mission.vue'
 import Character from '@/views/Character.vue'
 import RunGame from '@/views/RunGame.vue'
+import CreateShip from '@/views/CreateShip.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ Vue.use(VueRouter)
     path: '/run',
     name: 'Run',
     component: RunGame
+  },
+  {
+    path: '/ship',
+    name: 'Ship',
+    component: CreateShip
   },
 ]
 

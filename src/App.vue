@@ -40,6 +40,10 @@
           <v-list-item to="/character">
             <v-list-item-title>Create a Character</v-list-item-title>
           </v-list-item>
+
+          <v-list-item to="/ship">
+            <v-list-item-title>Create a Ship</v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
 
