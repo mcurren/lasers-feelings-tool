@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import Mission from '@/views/Mission.vue'
 import Character from '@/views/Character.vue'
+import RunGame from '@/views/RunGame.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ Vue.use(VueRouter)
     path: '/character',
     name: 'Character',
     component: Character
+  },
+  {
+    path: '/run',
+    name: 'Run',
+    component: RunGame
   },
 ]
 

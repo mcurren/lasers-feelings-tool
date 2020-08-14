@@ -38,7 +38,7 @@
           </v-list-item>
 
           <v-list-item to="/character">
-            <v-list-item-title>Create Character</v-list-item-title>
+            <v-list-item-title>Create a Character</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -59,7 +59,11 @@
           v-model="group"
           active-class="primary--text text--accent-4">
           <v-list-item to="/mission">
-            <v-list-item-title>Generate Mission</v-list-item-title>
+            <v-list-item-title>Generate a Mission</v-list-item-title>
+          </v-list-item>
+          
+          <v-list-item to="/run">
+            <v-list-item-title>Run the Game</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
