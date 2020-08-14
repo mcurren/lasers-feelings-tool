@@ -7,7 +7,7 @@
         <h1 class="text-h6">LASERS & FEELINGS <span class="hide-xs">APP</span></h1>
       </div>
       <v-spacer/>
-      <DialogInfo/>
+      <InfoDialog/>
     </v-app-bar>
 
     <!-- content -->
@@ -71,21 +71,28 @@
 
     <!-- footer -->
     <v-footer app flat absolute dark color="transparent">
-      <div id="footer">
-        <a href="https://curren.me" title="Mike Curren Portfolio" target="_blank">author</a>
-        <a href="https://github.com/mcurren/lasers-feelings-tool" title="Fork the repo on Github" target="_blank">github repo</a>
-      </div>
+      <CreditDialog/>
+      <v-spacer/>
+      <v-btn 
+        text
+        color="white"
+        href="https://github.com/mcurren/lasers-feelings-tool"
+        target="_blank">
+        Fork Me
+      </v-btn>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import DialogInfo from '@/components/DialogInfo';
+import InfoDialog from '@/components/DialogInfo';
+import CreditDialog from '@/components/DialogCredit';
 
 export default {
   name: 'App',
   components: {
-    DialogInfo,
+    InfoDialog,
+    CreditDialog,
   },
   data: () => ({
     drawer: false,
@@ -152,17 +159,6 @@ body {
   position: relative;
   section {
     margin: 2rem 0.75rem;
-  }
-}
-#footer {
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  a {
-    display: inline-block;
-    color: white !important;
-    text-decoration: none;
-    padding: 0.5rem;
   }
 }
 // results styles - needs to avoid scoping???

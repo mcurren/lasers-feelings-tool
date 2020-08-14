@@ -215,7 +215,7 @@
 </template>
 
 <script>
-import Dialog from '@/components/Dialog';
+import Dialog from '@/components/DialogHelp';
 
 export default {
   name: 'RollDice',
