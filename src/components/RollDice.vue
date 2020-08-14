@@ -7,8 +7,9 @@
       <section class="settings" v-show="!hasRolled">
         <v-card
           flat
-          shaped
-          elevation="0">
+          outlined
+          elevation="0"
+          class="mb-6 rounded-xl target-number">
           <v-card-text>
             <h3 class="overline mb-3 mt-0">
               <span>Character Number</span> 
@@ -16,6 +17,7 @@
                 <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5, by dragging the slider or using the <span class="nowrap"><v-icon small color="error">mdi-heart</v-icon>/<v-icon small color="success">mdi-brain</v-icon></span> buttons.</p>
                 <p>A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action).</p>
                 <p>A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
+                <p><em>Note: once you set this number, it should not change for the rest of the game.</em></p>
               </Dialog>
             </h3>
             <v-slider
@@ -27,7 +29,7 @@
               max="5"
               ticks="always"
               :thumb-size="24"
-              class="slider"
+              class="slider align-center"
               hide-details>
               <template v-slot:prepend>
                 <v-btn
@@ -57,8 +59,15 @@
                   </v-icon>
                 </v-btn>
               </template>
-             </v-slider>
+            </v-slider>
+          </v-card-text>
+        </v-card>
 
+        <v-card
+          flat
+          shaped
+          elevation="0">
+          <v-card-text>
             <h3 class="overline mb-0">
               <span>Roll</span> 
               <Dialog>
@@ -391,9 +400,6 @@ export default {
       margin-right: 12px;
     }
   }
-  .slider {
-    align-items: center;
-  }
   .helper-fields {
     display: flex;
     .helper-count {
@@ -405,6 +411,9 @@ export default {
       justify-content: center;
       align-items: center;
     }
+  }
+  .target-number {
+    border-color: rgba(#000825, 0.6) !important;
   }
   .results {
     .rolls {

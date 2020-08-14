@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import Mission from '@/views/Mission.vue'
+import Character from '@/views/Character.vue'
 
 Vue.use(VueRouter)
 
@@ -15,7 +16,12 @@ Vue.use(VueRouter)
     path: '/mission',
     name: 'Mission',
     component: Mission
-  }
+  },
+  {
+    path: '/character',
+    name: 'Character',
+    component: Character
+  },
 ]
 
 const router = new VueRouter({

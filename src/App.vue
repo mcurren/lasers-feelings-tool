@@ -20,7 +20,15 @@
       v-model="drawer"
       fixed
       temporary>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">
+            Players
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-list
+        dense
         nav>
         <v-list-item-group
           v-model="group"
@@ -29,6 +37,27 @@
             <v-list-item-title>Roll Dice</v-list-item-title>
           </v-list-item>
 
+          <v-list-item to="/character">
+            <v-list-item-title>Create Character</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+
+      <v-divider class="mt-3 mb-4"></v-divider>
+
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">
+            Game Master
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list
+        dense
+        nav>
+        <v-list-item-group
+          v-model="group"
+          active-class="primary--text text--accent-4">
           <v-list-item to="/mission">
             <v-list-item-title>Generate Mission</v-list-item-title>
           </v-list-item>
@@ -81,6 +110,9 @@ export default {
 }
 .nowrap {
   white-space: nowrap;
+}
+.align-center {
+  align-items: center;
 }
 // global styles
 body {
