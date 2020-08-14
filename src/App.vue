@@ -12,14 +12,40 @@
 
     <!-- content -->
     <v-main>
-      <router-view id="content" @updateOutcome="updateOutcome"/>
+      <router-view 
+        id="content"
+        @updateOutcome="updateOutcome"
+        @toggleMenu="drawer = !drawer"
+      />
     </v-main>
 
     <!-- nav -->
     <v-navigation-drawer
       v-model="drawer"
+      width="300"
       fixed
       temporary>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">
+            Lasers & Feelings
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list
+        dense
+        nav>
+        <v-list-item-group
+          v-model="group"
+          active-class="primary--text text--accent-4">
+          <v-list-item to="/">
+            <v-list-item-title>Intro</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+
+      <v-divider class="mt-3 mb-4"></v-divider>
+
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
@@ -33,7 +59,7 @@
         <v-list-item-group
           v-model="group"
           active-class="primary--text text--accent-4">
-          <v-list-item to="/">
+          <v-list-item to="/roll">
             <v-list-item-title>Roll Dice</v-list-item-title>
           </v-list-item>
 

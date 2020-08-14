@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="roll-dice">
     <transition 
       name="rollFade"
       @before-enter="resetInputs"

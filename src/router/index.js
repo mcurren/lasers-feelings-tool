@@ -8,30 +8,35 @@ import CreateShip from '@/views/CreateShip.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
-    name: 'Roll',
+    name: 'Intro',
+    component: Home
+  },
+  {
+    path: '/roll',
+    name: 'Roll Dice',
     component: Home
   },
   {
     path: '/mission',
-    name: 'Mission',
+    name: 'The Mission',
     component: Mission
   },
   {
     path: '/character',
-    name: 'Character',
+    name: 'Your Character',
     component: Character
   },
   {
     path: '/run',
-    name: 'Run',
+    name: 'Run the Game',
     component: RunGame
   },
   {
     path: '/ship',
-    name: 'Ship',
+    name: 'Your Ship',
     component: CreateShip
   },
 ]
