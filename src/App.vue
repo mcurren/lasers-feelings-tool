@@ -4,7 +4,7 @@
     <v-app-bar app elevation="1" dark color="primary">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <div class="d-flex align-center">
-        <h1 class="text-h6"><span class="hide-xs">Roll For</span> LASERS & FEELINGS</h1>
+        <h1 class="text-h6">LASERS & FEELINGS <span class="hide-xs">APP</span></h1>
       </div>
       <v-spacer/>
       <DialogInfo/>
@@ -61,7 +61,7 @@
           <v-list-item to="/mission">
             <v-list-item-title>Generate a Mission</v-list-item-title>
           </v-list-item>
-          
+
           <v-list-item to="/run">
             <v-list-item-title>Run the Game</v-list-item-title>
           </v-list-item>
