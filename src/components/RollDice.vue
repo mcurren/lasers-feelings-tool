@@ -12,7 +12,11 @@
           <v-card-text>
             <h3 class="overline mb-3 mt-0">
               <span>Character Number</span> 
-              <DialogNumber/>
+              <Dialog>
+                <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5, by dragging the slider or using the <span class="nowrap"><v-icon small color="error">mdi-heart</v-icon>/<v-icon small color="success">mdi-brain</v-icon></span> buttons.</p>
+                <p>A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action).</p>
+                <p>A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
+              </Dialog>
             </h3>
             <v-slider
               v-model="targetNumber"
@@ -57,7 +61,10 @@
 
             <h3 class="overline mb-0">
               <span>Roll</span> 
-              <DialogRoll/>
+              <Dialog>
+                <p style="margin-top:1rem;">If you’re using <strong>LASERS</strong> <span class="nowrap">(science, reason)</span>, you want to roll <strong>under</strong> your number.</p>
+                <p>If you’re using <strong>FEELINGS</strong>, <span class="nowrap">(rapport, passion)</span> you want to roll <strong>over</strong> your number.</p>
+              </Dialog>
             </h3>
             <v-btn-toggle 
               background-color="accent"
@@ -70,7 +77,10 @@
             <div v-show="rollType">
               <h3 class="overline mb-0 mt-3">
                 <span>Number Of Dice</span> 
-                <DialogDice/>
+                <Dialog>
+                  <p style="margin-top:1rem;">When you do something risky, roll <strong>1d6</strong> to find out how it goes. Roll <strong>+1d</strong> if you’re <strong>prepared</strong> and <strong>+1d</strong> if you’re an <strong>expert</strong>.</p>
+                  <p><em>The GM tells you how many dice to roll, based on your character and the situation.</em></p>
+                </Dialog>
               </h3>
               <v-btn-toggle 
                 background-color="accent"
@@ -92,7 +102,10 @@
               <div v-show="rollType && diceNum">
                 <h3 class="overline mb-0 mt-3">
                   <span>Number of Players Helping</span> 
-                  <DialogHelping/>
+                  <Dialog>
+                    <p style="margin-top:1rem;">If another player is helping you with this roll, they should say how they try to help.</p>
+                    <p>If they succeed, add <strong>+1d</strong>.</p>
+                  </Dialog>
                 </h3>
                 <div class="helper-fields">
                   <v-btn
@@ -193,18 +206,12 @@
 </template>
 
 <script>
-import DialogNumber from '../components/DialogNumber';
-import DialogRoll from '../components/DialogRoll';
-import DialogDice from '../components/DialogDice';
-import DialogHelping from '../components/DialogHelping';
+import Dialog from '@/components/Dialog';
 
 export default {
   name: 'RollDice',
   components: {
-    DialogNumber,
-    DialogRoll,
-    DialogDice,
-    DialogHelping,
+    Dialog,
   },
   data: () => ({
     targetNumber: 3,

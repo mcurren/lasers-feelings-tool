@@ -17,8 +17,7 @@
     <v-card
       tile>
       <v-card-text>
-        <p style="margin-top:1rem;">If you’re using <strong>LASERS</strong> (science, reason), you want to roll <strong>under</strong> your number.</p>
-        <p>If you’re using <strong>FEELINGS</strong>, (rapport, passion) you want to roll <strong>over</strong> your number.</p>
+        <slot></slot>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -30,7 +29,7 @@
 
 <script>
   export default {
-    name: 'RollDialog',
+    name: 'Dialog',
     data: () => ({
       dialog: false,
     }),

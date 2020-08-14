@@ -79,6 +79,9 @@ export default {
     display: none;
   }
 }
+.nowrap {
+  white-space: nowrap;
+}
 // global styles
 body {
   touch-action: manipulation;
