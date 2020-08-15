@@ -5,6 +5,7 @@ import Mission from '@/views/Mission.vue'
 import Character from '@/views/Character.vue'
 import RunGame from '@/views/RunGame.vue'
 import CreateShip from '@/views/CreateShip.vue'
+import RollDice from '@/views/RollDice.vue'
 
 Vue.use(VueRouter)
 
@@ -17,7 +18,7 @@ const routes = [
   {
     path: '/roll',
     name: 'Roll Dice',
-    component: Home
+    component: RollDice
   },
   {
     path: '/mission',
