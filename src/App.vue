@@ -4,7 +4,7 @@
     <v-app-bar app elevation="1" dark color="primary">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <div class="d-flex align-center">
-        <h1 class="text-h6">LASERS & FEELINGS <span class="hide-xs">APP</span></h1>
+        <h1 class="text-h6"><router-link to="/">LASERS & FEELINGS <span class="hide-xs">APP</span></router-link></h1>
       </div>
       <v-spacer/>
       <InfoDialog/>
@@ -172,6 +172,10 @@ body {
   &.bg--failure {
     background: linear-gradient(0deg, rgba(#d4396f,1) 10%, rgba(#d4396f,1) 45%, rgba(#d4396f,1) 100%) !important;
   }
+}
+.v-application h1 a {
+  color: inherit;
+  text-decoration: none;;
 }
 #nav {
   padding: 30px;
