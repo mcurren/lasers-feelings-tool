@@ -164,13 +164,13 @@ body {
   background: linear-gradient(0deg, rgba(90,16,120,1) 10%, rgba(177,59,191,1) 45%, rgba(250,184,100,1) 100%) !important;
   transition: background 0.6s;
   &.bg--success {
-    background: rgba(#01a8a5,1) !important;
+    background: linear-gradient(0deg, rgba(#01a8a5,1) 10%, rgba(#01a8a5,1) 45%, rgba(#01a8a5,1) 100%) !important;
   }
   &.bg--mixed {
-    background: rgba(#fab864,1) !important;
+    background: linear-gradient(0deg, rgba(#fab864,1) 10%, rgba(#fab864,1) 45%, rgba(#fab864,1) 100%) !important;
   }
   &.bg--failure {
-    background: rgba(#d4396f,1) !important;
+    background: linear-gradient(0deg, rgba(#d4396f,1) 10%, rgba(#d4396f,1) 45%, rgba(#d4396f,1) 100%) !important;
   }
 }
 #nav {

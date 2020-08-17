@@ -24,5 +24,9 @@
 <script>
 export default {
   name: 'RunGame',
+  mounted () {
+    // reset outcome from rolls
+    this.$emit('updateOutcome', null)
+  },
 }
 </script>

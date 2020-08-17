@@ -211,6 +211,8 @@ export default {
     },
   },
   mounted () {
+    // reset outcome from rolls
+    this.$emit('updateOutcome', null)
     // load data from local storage if available
     const number = localStorage.getItem('targetNumber')
     if (number) {

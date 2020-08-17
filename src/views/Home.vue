@@ -7,8 +7,11 @@
         elevation="0"
         class="mb-6 intro-text">
         <v-card-text>
-          <h1 class="text-h3 primary--text mb-4 mt-2"><span class="lasers">Lasers</span> <span class="amp">&</span> <span class="feelings">Feelings</span></h1>
-          <div class="text-h5 mb-3">You Are The Crew Of The Interstellar Scout Ship <strong>Raptor</strong>.</div>
+          <header>
+            <h1 class="text-h3 primary--text mb-4 mt-2"><span class="lasers">Lasers</span> <span class="amp">&</span> <span class="feelings">Feelings</span></h1>
+            <div class="text-h5 mb-3">You Are The Crew Of The Interstellar Scout Ship <strong>Raptor</strong>.</div>
+          </header>
+          <img src="../assets/home-ship.png" alt="Laser & Feelings Spaceship">
           <p class="text-body-1">Your mission is to explore uncharted regions of space, deal with aliens both friendly and deadly, and defend the Consortium worlds against space dangers.</p>
           <p class="text-body-1"><strong>Captain Darcy</strong> has been overcome by the strange psychic entity known as Something Else, leaving you to fend for yourselves while he recovers in a medical pod.</p>
           <p>What now? <a href="#" @click.prevent="toggleMenu">Click here</a>.</p>
@@ -25,6 +28,10 @@ export default {
     toggleMenu () {
       this.$emit('toggleMenu')
     },
+  },
+  mounted () {
+    // reset outcome from rolls
+    this.$emit('updateOutcome', null)
   },
 }
 </script>
@@ -59,5 +66,11 @@ h1 {
     font-size: 4em !important;
     line-height: 3.75rem;
   }
+}
+img {
+  max-width: 100%;
+  margin: 1em 0 2em;
+  padding: 0 1em;
+  transform: rotate(5deg);
 }
 </style>

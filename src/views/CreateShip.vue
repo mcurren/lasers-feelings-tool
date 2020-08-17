@@ -88,6 +88,9 @@ export default {
     },
   },
   mounted () {
+    // reset outcome from rolls
+    this.$emit('updateOutcome', null)
+    // load saved data from local storage
     const shipStrengths = localStorage.getItem('shipStrengths')
     if (shipStrengths) {
       this.activeStrengths = JSON.parse(shipStrengths)
