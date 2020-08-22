@@ -1,5 +1,8 @@
 <template>
   <v-app :class="appBgClass">
+    <div class="bg-results bg-results--success"></div>
+    <div class="bg-results bg-results--mixed"></div>
+    <div class="bg-results bg-results--failure"></div>
     <!-- header -->
     <v-app-bar app elevation="1" dark color="primary">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -164,13 +167,39 @@ body {
   background: linear-gradient(0deg, rgba(90,16,120,1) 10%, rgba(177,59,191,1) 45%, rgba(250,184,100,1) 100%) !important;
   transition: background 0.6s;
   &.bg--success {
-    background: linear-gradient(0deg, rgba(#01a8a5,1) 10%, rgba(#01a8a5,1) 45%, rgba(#01a8a5,1) 100%) !important;
+    // background: linear-gradient(0deg, rgba(#01a8a5,1) 10%, rgba(#01a8a5,1) 45%, rgba(#01a8a5,1) 100%) !important;
+    .bg-results--success {
+      opacity: 1;
+    }
   }
   &.bg--mixed {
-    background: linear-gradient(0deg, rgba(#fab864,1) 10%, rgba(#fab864,1) 45%, rgba(#fab864,1) 100%) !important;
+    // background: linear-gradient(0deg, rgba(#fab864,1) 10%, rgba(#fab864,1) 45%, rgba(#fab864,1) 100%) !important;
+    .bg-results--mixed {
+      opacity: 1;
+    }
   }
   &.bg--failure {
-    background: linear-gradient(0deg, rgba(#d4396f,1) 10%, rgba(#d4396f,1) 45%, rgba(#d4396f,1) 100%) !important;
+    // background: linear-gradient(0deg, rgba(#d4396f,1) 10%, rgba(#d4396f,1) 45%, rgba(#d4396f,1) 100%) !important;
+    .bg-results--failure {
+      opacity: 1;
+    }
+  }
+}
+.bg-results {
+  position: fixed;
+  opacity: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: opacity 0.8s ease-in-out;
+  &.bg-results--success {
+    background-color: #01a8a5;
+  }
+  &.bg-results--mixed {
+    background-color: #fab864;
+  }
+  &.bg-results--failure {
+    background-color: #d4396f;
   }
 }
 .v-application h1 a {
