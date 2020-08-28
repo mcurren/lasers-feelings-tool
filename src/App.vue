@@ -24,11 +24,13 @@
 
     <!-- content -->
     <v-main>
-      <router-view 
-        id="content"
-        @updateOutcome="updateOutcome"
-        @toggleMenu="drawer = !drawer"
-      />
+      <transition name="fade" mode="out-in">
+        <router-view 
+          id="content"
+          @updateOutcome="updateOutcome"
+          @toggleMenu="drawer = !drawer"
+        />
+      </transition>
     </v-main>
 
     <!-- nav -->
@@ -172,14 +174,6 @@ body {
     line-height: 1.4;
     color: rgba(#000825, 0.75);
     margin-top: -10px;
-    // padding-left: 8px;
-    // border-left: 3px solid rgba(#000825, 0.3);
-    // &:before {
-    //   content: '"'
-    // }
-    // &:after {
-    //   content: '"'
-    // }
   }
 }
 // vuetify overrides
@@ -206,5 +200,12 @@ body {
 .v-expansion-panel-content__wrap {
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+// page transitions
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .4s;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0;
 }
 </style>
