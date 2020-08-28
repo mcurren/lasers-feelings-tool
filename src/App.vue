@@ -23,84 +23,9 @@
     </v-main>
 
     <!-- nav -->
-    <v-navigation-drawer
-      v-model="drawer"
-      width="300"
-      fixed
-      temporary>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="title">
-            Lasers & Feelings
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list
-        dense
-        nav>
-        <v-list-item-group
-          v-model="group"
-          active-class="primary--text text--accent-4">
-          <v-list-item to="/">
-            <v-list-item-title>Intro</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-
-      <v-divider class="mt-3 mb-4"></v-divider>
-
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="title">
-            Players
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list
-        dense
-        nav>
-        <v-list-item-group
-          v-model="group"
-          active-class="primary--text text--accent-4">
-          <v-list-item to="/roll">
-            <v-list-item-title>Roll Dice</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item to="/character">
-            <v-list-item-title>Create a Character</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item to="/ship">
-            <v-list-item-title>Create a Ship</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-
-      <v-divider class="mt-3 mb-4"></v-divider>
-
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="title">
-            Game Master
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list
-        dense
-        nav>
-        <v-list-item-group
-          v-model="group"
-          active-class="primary--text text--accent-4">
-          <v-list-item to="/mission">
-            <v-list-item-title>Generate a Mission</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item to="/run">
-            <v-list-item-title>Run the Game</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
+    <NavMenu 
+      :open="drawer"
+      @changeMenu="drawer = $event"/>
 
     <!-- footer -->
     <v-footer app flat absolute dark color="transparent">
@@ -118,6 +43,7 @@
 </template>
 
 <script>
+import NavMenu from '@/components/NavMenu';
 import InfoDialog from '@/components/DialogInfo';
 import CreditDialog from '@/components/DialogCredit';
 
@@ -126,6 +52,7 @@ export default {
   components: {
     InfoDialog,
     CreditDialog,
+    NavMenu,
   },
   data: () => ({
     drawer: false,
@@ -167,19 +94,16 @@ body {
   background: linear-gradient(0deg, rgba(90,16,120,1) 10%, rgba(177,59,191,1) 45%, rgba(250,184,100,1) 100%) !important;
   transition: background 0.6s;
   &.bg--success {
-    // background: linear-gradient(0deg, rgba(#01a8a5,1) 10%, rgba(#01a8a5,1) 45%, rgba(#01a8a5,1) 100%) !important;
     .bg-results--success {
       opacity: 1;
     }
   }
   &.bg--mixed {
-    // background: linear-gradient(0deg, rgba(#fab864,1) 10%, rgba(#fab864,1) 45%, rgba(#fab864,1) 100%) !important;
     .bg-results--mixed {
       opacity: 1;
     }
   }
   &.bg--failure {
-    // background: linear-gradient(0deg, rgba(#d4396f,1) 10%, rgba(#d4396f,1) 45%, rgba(#d4396f,1) 100%) !important;
     .bg-results--failure {
       opacity: 1;
     }
