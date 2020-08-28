@@ -1,81 +1,55 @@
 <template>
   <v-navigation-drawer
     :value="open"
-    width="300"
+    width="340"
+    class="secondary"
+    dark
     fixed
     temporary
     @input="toggleMenu($event)">
-    <v-list-item>
+    <v-list-item 
+      to="/" 
+      active-class="accent--text">
+      <v-list-item-avatar>
+        <img src="../assets/avatar.png">
+      </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title class="title">
-          Lasers & Feelings
-        </v-list-item-title>
+        <v-list-item-title>Play Lasers & Feelings</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
+
     <v-list
       dense
+      shaped
+      ripple
       nav>
-      <v-list-item-group
-        v-model="group"
-        active-class="primary--text text--accent-4">
-        <v-list-item to="/">
-          <v-list-item-title>Intro</v-list-item-title>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
+      <v-subheader>PLAYERS</v-subheader>
+      <v-list-item 
+        v-for="(item, i) in playerItems" 
+        :key="i" 
+        :to="item.route"
+        active-class="accent--text">
+        <v-list-item-icon v-if="item.icon">
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-    <v-divider class="mt-3 mb-4"></v-divider>
-
-    <v-list-item>
-      <v-list-item-content>
-        <v-list-item-title class="title">
-          Players
-        </v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
-    <v-list
-      dense
-      nav>
-      <v-list-item-group
-        v-model="group"
-        active-class="primary--text text--accent-4">
-        <v-list-item to="/roll">
-          <v-list-item-title>Roll Dice</v-list-item-title>
-        </v-list-item>
-
-        <v-list-item to="/character">
-          <v-list-item-title>Create a Character</v-list-item-title>
-        </v-list-item>
-
-        <v-list-item to="/ship">
-          <v-list-item-title>Create a Ship</v-list-item-title>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-
-    <v-divider class="mt-3 mb-4"></v-divider>
-
-    <v-list-item>
-      <v-list-item-content>
-        <v-list-item-title class="title">
-          Game Master
-        </v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
-    <v-list
-      dense
-      nav>
-      <v-list-item-group
-        v-model="group"
-        active-class="primary--text text--accent-4">
-        <v-list-item to="/mission">
-          <v-list-item-title>Generate a Mission</v-list-item-title>
-        </v-list-item>
-
-        <v-list-item to="/run">
-          <v-list-item-title>Run the Game</v-list-item-title>
-        </v-list-item>
-      </v-list-item-group>
+      <v-subheader class="mt-4">GAME MASTER</v-subheader>
+      <v-list-item 
+        v-for="(item, i) in gmItems" 
+        :key="i" 
+        :to="item.route"
+        active-class="accent--text">
+        <v-list-item-icon v-if="item.icon">
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -84,7 +58,35 @@
 export default {
   name: 'NavMenu',
   data: () => ({
-    group: null,
+    playerItems: [
+      {
+        icon: 'mdi-dice-multiple-outline',
+        title: 'Roll Dice',
+        route: '/roll'
+      },
+      {
+        icon: 'mdi-account-edit-outline',
+        title: 'Create a Character',
+        route: '/character'
+      },
+      {
+        icon: 'mdi-rocket-outline',
+        title: 'Create a Ship',
+        route: '/ship'
+      },
+    ],
+    gmItems: [
+      {
+        icon: 'mdi-script-text-outline',
+        title: 'Generate a Mission',
+        route: '/mission'
+      },
+      {
+        icon: 'mdi-puzzle-outline',
+        title: 'Run the Game',
+        route: '/run'
+      },
+    ],
   }),
   props: {
     open: {

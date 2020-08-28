@@ -4,11 +4,20 @@
     <div class="bg-results bg-results--mixed"></div>
     <div class="bg-results bg-results--failure"></div>
     <!-- header -->
-    <v-app-bar app elevation="1" dark color="primary">
+    <v-app-bar 
+      app 
+      dark 
+      elevation="1"
+      :collapse="!collapseOnScroll"
+      :collapse-on-scroll="collapseOnScroll"
+      color="primary">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <div class="d-flex align-center">
-        <h1 class="text-h6"><router-link to="/">LASERS & FEELINGS <span class="hide-xs">APP</span></router-link></h1>
-      </div>
+      <v-toolbar-title v-if="this.$route.name === 'Intro'">
+        <span class="hide-small">Play</span> Lasers & Feelings
+      </v-toolbar-title>
+      <v-toolbar-title v-else>
+        <span class="hide-small">Lasers & Feelings:</span> {{ this.$route.name }}
+      </v-toolbar-title>
       <v-spacer/>
       <InfoDialog/>
     </v-app-bar>
@@ -25,7 +34,8 @@
     <!-- nav -->
     <NavMenu 
       :open="drawer"
-      @changeMenu="drawer = $event"/>
+      @changeMenu="drawer = $event"
+    />
 
     <!-- footer -->
     <v-footer app flat absolute dark color="transparent">
@@ -55,6 +65,7 @@ export default {
     NavMenu,
   },
   data: () => ({
+    collapseOnScroll: true,
     drawer: false,
     group: null,
     outcome: null,
@@ -74,8 +85,8 @@ export default {
 
 <style lang="scss">
 // utility classes
-.hide-xs {
-  @media (max-width: 459px) {
+.hide-small {
+  @media (max-width: 599px) {
     display: none;
   }
 }
@@ -177,6 +188,9 @@ body {
 }
 .theme--light.v-application {
   background: none transparent !important;
+}
+.v-toolbar__title {
+  transform: translateY(-1px);
 }
 .theme--light.v-icon {
   color: rgba(0,8,37,0.74);

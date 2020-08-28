@@ -5,10 +5,7 @@
     max-width="500px">
     <template v-slot:activator="{ on, attrs }">
       <v-btn 
-        fab
-        x-small
-        color="error"
-        elevation="1"
+        icon
         v-bind="attrs"
         v-on="on">
         <v-icon>mdi-head-question-outline</v-icon>
