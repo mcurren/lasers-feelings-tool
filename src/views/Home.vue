@@ -11,7 +11,7 @@
             <h1 class="text-h3 primary--text mb-4 mt-2"><span class="lasers">Lasers</span> <span class="amp">&</span> <span class="feelings">Feelings</span></h1>
             <div class="text-h5 mb-3">You Are The Crew Of The Interstellar Scout Ship <strong>Raptor</strong>.</div>
           </header>
-          <img src="../assets/home-icon.png" alt="Laser & Feelings Spaceship">
+          <img src="../assets/icon-512px.png" alt="Laser & Feelings Spaceship">
           <p class="text-body-1">Your mission is to explore uncharted regions of space, deal with aliens both friendly and deadly, and defend the Consortium worlds against space dangers.</p>
           <p class="text-body-1"><strong>Captain Darcy</strong> has been overcome by the strange psychic entity known as Something Else, leaving you to fend for yourselves while he recovers in a medical pod.</p>
           <p>What now? <a href="#" @click.prevent="toggleMenu">Click here</a>.</p>

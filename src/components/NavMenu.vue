@@ -11,7 +11,7 @@
       to="/" 
       active-class="accent--text">
       <v-list-item-avatar>
-        <img src="../assets/avatar.png">
+        <img src="../assets/avatar-white.png">
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title>Play Lasers & Feelings</v-list-item-title>
@@ -25,8 +25,8 @@
       nav>
       <v-subheader>PLAYERS</v-subheader>
       <v-list-item 
-        v-for="(item, i) in playerItems" 
-        :key="i" 
+        v-for="item in playerItems" 
+        :key="item.title" 
         :to="item.route"
         active-class="accent--text">
         <v-list-item-icon v-if="item.icon">
@@ -39,8 +39,8 @@
 
       <v-subheader class="mt-4">GAME MASTER</v-subheader>
       <v-list-item 
-        v-for="(item, i) in gmItems" 
-        :key="i" 
+        v-for="item in gmItems" 
+        :key="item.title" 
         :to="item.route"
         active-class="accent--text">
         <v-list-item-icon v-if="item.icon">
