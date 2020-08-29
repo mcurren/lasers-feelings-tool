@@ -24,13 +24,15 @@
 
     <!-- content -->
     <v-main>
-      <transition name="fade" mode="out-in">
-        <router-view 
-          id="content"
-          @updateOutcome="updateOutcome"
-          @toggleMenu="drawer = !drawer"
-        />
-      </transition>
+      <v-container fluid>
+        <transition name="fade" mode="out-in">
+          <router-view 
+            id="content"
+            @updateOutcome="updateOutcome"
+            @toggleMenu="drawer = !drawer"
+          />
+        </transition>
+      </v-container>
     </v-main>
 
     <!-- nav -->
@@ -103,6 +105,9 @@ body {
   touch-action: manipulation;
   background: #5a1078;
 }
+img {
+  max-width: 100%;
+}
 #app {
   background: linear-gradient(0deg, rgba(90,16,120,1) 10%, rgba(177,59,191,1) 45%, rgba(250,184,100,1) 100%) !important;
   transition: background 0.6s;
@@ -158,7 +163,7 @@ body {
   margin: 0 auto;
   position: relative;
   section {
-    margin: 2rem 0.75rem;
+    margin: 1rem 0 2em;
   }
 }
 // results styles - needs to avoid scoping???

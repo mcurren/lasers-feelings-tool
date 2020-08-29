@@ -10,6 +10,15 @@
           outlined
           elevation="0"
           class="mb-6 rounded-xl target-number">
+          <!-- <v-card-subtitle>
+            <span>Character Number</span>
+            <Dialog>
+              <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5, by dragging the slider or using the <span class="nowrap"><v-icon small color="error">mdi-heart</v-icon>/<v-icon small color="success">mdi-brain</v-icon></span> buttons.</p>
+              <p>A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action).</p>
+              <p>A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
+              <p><em>Note: once you set this number, it should not change for the rest of the game.</em></p>
+            </Dialog>
+          </v-card-subtitle> -->
           <v-card-text>
             <h3 class="overline mb-3 mt-0">
               <span>Character Number</span> 
@@ -25,10 +34,11 @@
               thumb-label="always"
               color="info"
               track-color="warning"
+              dense
               min="2"
               max="5"
               ticks="always"
-              :thumb-size="24"
+              :thumb-size="20"
               class="slider align-center"
               hide-details>
               <template v-slot:prepend>
@@ -395,7 +405,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .overline {
+  .overline, 
+  .v-card__subtitle {
     display: flex;
     align-items: center;
     & > span {

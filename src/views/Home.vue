@@ -68,7 +68,7 @@ h1 {
   }
 }
 img {
-  max-width: 300px;
+  width: 300px;
   margin: 1em 0 2em;
   // padding: 0 1em;
   // transform: rotate(5deg);
