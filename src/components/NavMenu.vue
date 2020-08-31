@@ -60,11 +60,6 @@ export default {
   data: () => ({
     playerItems: [
       {
-        icon: 'mdi-dice-multiple-outline',
-        title: 'Roll Dice',
-        route: '/roll'
-      },
-      {
         icon: 'mdi-account-edit-outline',
         title: 'Create a Character',
         route: '/character'
@@ -73,6 +68,11 @@ export default {
         icon: 'mdi-rocket-outline',
         title: 'Create a Ship',
         route: '/ship'
+      },
+      {
+        icon: 'mdi-dice-multiple-outline',
+        title: 'Roll Some Dice',
+        route: '/roll'
       },
     ],
     gmItems: [

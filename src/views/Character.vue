@@ -6,52 +6,78 @@
         shaped
         elevation="0"
         class="mb-6">
-        <v-card-subtitle>Select a Style</v-card-subtitle>
-        <v-card-text>
+        <v-card-title>Build a Character</v-card-title>
+
+        <v-card-text
+          class="pt-2">
           <v-select
+            hide-details
+            label="Select a Style"
             :items="styles"
-            placeholder="Choose"
+            placeholder="Choose one"
             v-model="character.style"
             class="pt-0 mt-0"
           ></v-select>
         </v-card-text>
 
-        <v-card-subtitle>Select a Role</v-card-subtitle>
         <v-card-text>
           <v-select
+            hide-details
+            label="Select a Role"
             :items="roles"
-            placeholder="Choose"
+            placeholder="Choose one"
             v-model="character.role"
             class="pt-0 mt-0"
           ></v-select>
         </v-card-text>
 
-        <NumberSlider 
+        <!-- <NumberSlider 
           title="Choose a Number"
           :hasTopPad="false"
           :padBottom="3"
           @numberChange="changeTargetNumber($event)"
-        />
+        /> -->
 
-        <v-card-subtitle>Enter a Name</v-card-subtitle>
+        <v-card-text>
+          <div class="character-number-select">
+            <v-select
+              hide-details
+              label="Select a Number"
+              :items="numbers"
+              placeholder="Choose one"
+              v-model="targetNumber"
+              class="pt-0 mt-0"
+            ></v-select>
+            <Dialog>
+              <p style="margin-top:1rem;">A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action).</p>
+              <p>A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
+            </Dialog>
+          </div>
+        </v-card-text>
+
         <v-card-text>
           <v-text-field
-            placeholder="Your Name"
+            hide-details
+            label="Enter a Name"
+            placeholder="Character Name"
             v-model="character.name"
             class="pt-0 mt-0"
           ></v-text-field>
         </v-card-text>
 
-        <v-card-subtitle>Select a Personal Goal</v-card-subtitle>
-        <v-card-text>
+        <v-card-text
+          class="pb-8">
           <v-select
+            hide-details
+            label="Select a Personal Goal"
             :items="goals"
-            placeholder="Choose your Goal"
+            placeholder="Choose one"
             v-model="character.goal"
             class="pt-0 mt-0"
           ></v-select>
           <v-text-field
             v-if="character.goal === 'Other'"
+            hide-details
             label="Enter a Goal"
             v-model="character.otherGoal"
           ></v-text-field>
@@ -75,15 +101,37 @@
         </v-card-text>
       </v-card>
     </section>
+
+    <v-snackbar
+      light
+      multiLine
+      elevation="1"
+      timeout="6000"
+      color="warning"
+      transition="slide-y-reverse-transition"
+      v-model="alert.show">
+      {{ alert.text }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="secondary"
+          text
+          v-bind="attrs"
+          @click="alert.show = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 <script>
-import NumberSlider from '@/components/NumberSlider';
+// import NumberSlider from '@/components/NumberSlider';
+import Dialog from '@/components/DialogHelp';
 
 export default {
-  name: 'Mission',
+  name: 'Character',
   components: {
-    NumberSlider,
+    // NumberSlider,
+    Dialog,
   },
   data: () => ({
     character: {
@@ -93,10 +141,15 @@ export default {
       goal: null,
       otherGoal: null,
     },
-    targetNumber: 3,
+    targetNumber: '3',
     styles: ['Alien', 'Android', 'Dangerous', 'Heroic', 'Hot-Shot', 'Intrepid', 'Savvy'],
     roles: ['Doctor', 'Envoy', 'Engineer', 'Explorer', 'Pilot', 'Scientist', 'Soldier'],
+    numbers: ['2', '3', '4', '5'],
     goals: ['Become Captain', 'Meet New Aliens', 'Shoot Bad Guys', 'Find New Worlds', 'Solve Weird Space Mysteries', 'Prove Yourself', 'Keep Being Awesome', 'Other'],
+    alert: {
+      show: false,
+      text: null
+    },
   }),
   computed: {
     goalSet () {
@@ -119,12 +172,18 @@ export default {
       ) ? true : false
     }
   },
-  methods: {
-    changeTargetNumber (number) {
-      this.targetNumber = number
-    },
-  },
+  // methods: {
+  //   changeTargetNumber (number) {
+  //     this.targetNumber = number
+  //   },
+  // },
   watch: {
+    // save target number to local storage on change
+    targetNumber: function (newNum, oldNum) {
+      if (newNum === oldNum) return
+      // save target number to local storage on change
+      localStorage.setItem('targetNumber', parseInt(newNum))
+    },
     // save character to local storage on change
     character: {
       deep: true,
@@ -137,6 +196,13 @@ export default {
     // reset outcome from rolls
     this.$emit('updateOutcome', null)
     // load data from local storage if available
+    const number = localStorage.getItem('targetNumber')
+    if (number) {
+      this.targetNumber = number
+      // alert the user
+      this.alert.text = `Loaded your most recent character number (${number}).`
+      this.alert.show = true
+    }
     const character = localStorage.getItem('character')
     if (character) {
       this.character = JSON.parse(character)
@@ -146,11 +212,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.overline {
+.character-number-select {
   display: flex;
   align-items: center;
-  & > span {
-    margin-right: 12px;
+  .v-input {
+    margin-right: 8px;
   }
 }
 </style>
