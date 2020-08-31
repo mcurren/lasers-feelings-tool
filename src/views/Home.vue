@@ -1,6 +1,6 @@
 <template>
   <div class="home text-left text-sm-center">
-    <section class="mb-2">
+    <section>
       <v-card
         flat
         shaped

@@ -21,10 +21,15 @@
         {{ this.$route.name }}
       </v-toolbar-title>
       <v-spacer/>
-      <v-toolbar-items>
+      <!-- <v-toolbar-items> -->
         <InfoDialog/>
-      </v-toolbar-items>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <!-- </v-toolbar-items> -->
+      <v-divider
+        class="mx-1"
+        vertical
+        inset
+      ></v-divider>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
     </v-app-bar>
 
     <!-- content -->
@@ -171,7 +176,7 @@ img {
   margin: 0 auto;
   position: relative;
   section {
-    margin: 1rem 0 2em;
+    margin: 0.5rem 0;
   }
 }
 // results styles - needs to avoid scoping???

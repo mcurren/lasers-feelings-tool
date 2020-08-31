@@ -66,7 +66,7 @@
         </v-card-text>
 
         <v-card-text
-          class="pb-8">
+          class="pb-9">
           <v-select
             hide-details
             label="Select a Personal Goal"
@@ -141,7 +141,7 @@ export default {
       goal: null,
       otherGoal: null,
     },
-    targetNumber: '3',
+    targetNumber: null,
     styles: ['Alien', 'Android', 'Dangerous', 'Heroic', 'Hot-Shot', 'Intrepid', 'Savvy'],
     roles: ['Doctor', 'Envoy', 'Engineer', 'Explorer', 'Pilot', 'Scientist', 'Soldier'],
     numbers: ['2', '3', '4', '5'],
