@@ -7,10 +7,10 @@
       <section class="settings" v-show="!hasRolled">
         <v-card
           flat
-          outlined
+          color="rgba(255,255,255,0.6)"
           elevation="0"
           class="mb-6 rounded-xl target-number">
-          <!-- <v-card-subtitle>
+          <v-card-subtitle>
             <span>Character Number</span>
             <Dialog>
               <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5, by dragging the slider or using the <span class="nowrap"><v-icon small color="error">mdi-heart</v-icon>/<v-icon small color="success">mdi-brain</v-icon></span> buttons.</p>
@@ -18,23 +18,13 @@
               <p>A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
               <p><em>Note: once you set this number, it should not change for the rest of the game.</em></p>
             </Dialog>
-          </v-card-subtitle> -->
+          </v-card-subtitle>
           <v-card-text>
-            <h3 class="overline mb-3 mt-0">
-              <span>Character Number</span> 
-              <Dialog>
-                <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5, by dragging the slider or using the <span class="nowrap"><v-icon small color="error">mdi-heart</v-icon>/<v-icon small color="success">mdi-brain</v-icon></span> buttons.</p>
-                <p>A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action).</p>
-                <p>A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
-                <p><em>Note: once you set this number, it should not change for the rest of the game.</em></p>
-              </Dialog>
-            </h3>
             <v-slider
               v-model="targetNumber"
               thumb-label="always"
               color="info"
               track-color="warning"
-              dense
               min="2"
               max="5"
               ticks="always"
@@ -77,14 +67,14 @@
           flat
           shaped
           elevation="0">
+          <v-card-subtitle>
+            <span>Type of Roll</span> 
+            <Dialog>
+              <p style="margin-top:1rem;">If you’re using <strong>LASERS</strong> <span class="nowrap">(science, reason)</span>, you want to roll <strong>under</strong> your number.</p>
+              <p>If you’re using <strong>FEELINGS</strong>, <span class="nowrap">(rapport, passion)</span> you want to roll <strong>over</strong> your number.</p>
+            </Dialog>
+          </v-card-subtitle>
           <v-card-text>
-            <h3 class="overline mb-0">
-              <span>Roll</span> 
-              <Dialog>
-                <p style="margin-top:1rem;">If you’re using <strong>LASERS</strong> <span class="nowrap">(science, reason)</span>, you want to roll <strong>under</strong> your number.</p>
-                <p>If you’re using <strong>FEELINGS</strong>, <span class="nowrap">(rapport, passion)</span> you want to roll <strong>over</strong> your number.</p>
-              </Dialog>
-            </h3>
             <v-btn-toggle 
               background-color="accent"
               color="primary"
@@ -92,15 +82,17 @@
               <v-btn value="lasers">Lasers</v-btn>
               <v-btn value="feelings">Feelings</v-btn>
             </v-btn-toggle>
+          </v-card-text>
 
-            <div v-show="rollType">
-              <h3 class="overline mb-0 mt-3">
-                <span>Number Of Dice</span> 
-                <Dialog>
-                  <p style="margin-top:1rem;">When you do something risky, roll <strong>1d6</strong> to find out how it goes. Roll <strong>+1d</strong> if you’re <strong>prepared</strong> and <strong>+1d</strong> if you’re an <strong>expert</strong>.</p>
-                  <p><em>The GM tells you how many dice to roll, based on your character and the situation.</em></p>
-                </Dialog>
-              </h3>
+          <template v-if="rollType">
+            <v-card-subtitle>
+              <span>Number of Dice</span> 
+              <Dialog>
+                <p style="margin-top:1rem;">When you do something risky, roll <strong>1d6</strong> to find out how it goes. Roll <strong>+1d</strong> if you’re <strong>prepared</strong> and <strong>+1d</strong> if you’re an <strong>expert</strong>.</p>
+                <p><em>The GM tells you how many dice to roll, based on your character and the situation.</em></p>
+              </Dialog>
+            </v-card-subtitle>
+            <v-card-text>
               <v-btn-toggle 
                 background-color="accent"
                 color="primary"
@@ -118,38 +110,41 @@
                   <v-icon>mdi-dice-3-outline</v-icon>
                 </v-btn>
               </v-btn-toggle>
-              <div v-show="rollType && diceNum">
-                <h3 class="overline mb-0 mt-3">
-                  <span>Number of Players Helping</span> 
-                  <Dialog>
-                    <p style="margin-top:1rem;">If another player is helping you with this roll, they should say how they try to help.</p>
-                    <p>If they succeed, add <strong>+1d</strong>.</p>
-                  </Dialog>
-                </h3>
-                <div class="helper-fields">
-                  <v-btn
-                    fab
-                    x-small
-                    elevation="0"
-                    color="#f7edfd"
-                    @click="decrement('helperNum', 0)">
-                    <v-icon>mdi-minus</v-icon>
-                  </v-btn>
-                  <div class="helper-count">
-                    <span>{{ helperNum }}</span>
-                  </div>
-                  <v-btn
-                    fab
-                    x-small
-                    elevation="0"
-                    color="#f7edfd"
-                    @click="increment('helperNum', 19)">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
+            </v-card-text>
+          </template>
+
+          <template v-if="rollType && diceNum">
+            <v-card-subtitle>
+              <span>Number of Players Helping</span> 
+              <Dialog>
+                <p style="margin-top:1rem;">If another player is helping you with this roll, they should say how they try to help.</p>
+                <p>If they succeed, add <strong>+1d</strong>.</p>
+              </Dialog>
+            </v-card-subtitle>
+            <v-card-text>
+              <div class="helper-fields">
+                <v-btn
+                  fab
+                  x-small
+                  elevation="0"
+                  color="#f7edfd"
+                  @click="decrement('helperNum', 0)">
+                  <v-icon>mdi-minus</v-icon>
+                </v-btn>
+                <div class="helper-count">
+                  <span>{{ helperNum }}</span>
                 </div>
+                <v-btn
+                  fab
+                  x-small
+                  elevation="0"
+                  color="#f7edfd"
+                  @click="increment('helperNum', 19)">
+                  <v-icon>mdi-plus</v-icon>
+                </v-btn>
               </div>
-            </div>
-          </v-card-text>
+            </v-card-text>
+          </template>
 
           <v-card-actions>
             <v-btn
@@ -410,7 +405,7 @@ export default {
     display: flex;
     align-items: center;
     & > span {
-      margin-right: 12px;
+      margin-right: 5px;
     }
   }
   .helper-fields {

@@ -1,15 +1,17 @@
 <template>
-  <div class="home">
+  <div class="home text-left text-sm-center">
     <section class="mb-2">
       <v-card
         flat
         shaped
         elevation="0"
-        class="mb-6 intro-text">
+        class="mb-6">
         <v-card-text>
           <header>
-            <h1 class="text-h3 primary--text mb-4 mt-2"><span class="lasers">Lasers</span> <span class="amp">&</span> <span class="feelings">Feelings</span></h1>
-            <div class="text-h5 mb-3">You Are The Crew Of The Interstellar Scout Ship <strong>Raptor</strong>.</div>
+            <h1 class="text-h3 primary--text mb-4 mt-2 mb-sm-7 mt-sm-4">
+              <span class="lasers">Lasers</span> <span class="amp">&amp;</span> <span class="feelings">Feelings</span>
+            </h1>
+            <div class="text-h6 text-sm-h5  mb-3">You Are The Crew Of The Interstellar Scout Ship <strong>Raptor</strong>.</div>
           </header>
           <img src="../assets/icon-512px.png" alt="Laser & Feelings Spaceship">
           <p class="text-body-1">Your mission is to explore uncharted regions of space, deal with aliens both friendly and deadly, and defend the Consortium worlds against space dangers.</p>
@@ -36,26 +38,35 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.intro-text {
-  text-align: center;
-}
+// .intro-text {
+//   text-align: center;
+// }
 h1 {
   text-transform: uppercase;
   font-weight: 600 !important;
-  span {
-    display: block;
+  line-height: 1 !important;
+  @media (min-width: 600px) {
+    line-height: 0.6 !important;
+    span {
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
   }
   .lasers {
     opacity: 0.9;
   }
   .amp {
-    margin: -0.55em 0;
-    transform: rotate(20deg);
-    // font-weight: 400;
     opacity: 0.5;
-    font-size: 0.95em;
-    z-index: 2;
-    position: relative;
+    transform: rotate(10deg);
+    transform-origin: center;
+    @media (min-width: 600px) {
+      // margin: -0.55em 0;
+      display: inline-block;
+      font-size: 0.95em;
+      z-index: 5;
+      position: relative;
+    }
   }
   .feelings {
     opacity: 0.8;
@@ -68,8 +79,9 @@ h1 {
   }
 }
 img {
+  display: block;
   width: 300px;
-  margin: 1em 0 2em;
+  margin: 1.5em auto 2em;
   // padding: 0 1em;
   // transform: rotate(5deg);
 }

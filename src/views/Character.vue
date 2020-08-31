@@ -6,34 +6,36 @@
         shaped
         elevation="0"
         class="mb-6">
+        <v-card-subtitle>Style</v-card-subtitle>
         <v-card-text>
-          <h3 class="overline mt-0 mb-0">
-            <span>Style</span> 
-          </h3>
           <v-select
             :items="styles"
             placeholder="Choose"
             v-model="character.style"
             class="pt-0 mt-0"
           ></v-select>
-          <h3 class="overline mt-0 mb-0">
-            <span>Role</span> 
-          </h3>
+        </v-card-text>
+
+        <v-card-subtitle>Role</v-card-subtitle>
+        <v-card-text>
           <v-select
             :items="roles"
             placeholder="Choose"
             v-model="character.role"
             class="pt-0 mt-0"
           ></v-select>
-          <h3 class="overline mb-2 mt-0">
-            <span>Character Number</span> 
-            <Dialog>
-              <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5, by dragging the slider or using the <span class="nowrap"><v-icon small color="error">mdi-heart</v-icon>/<v-icon small color="success">mdi-brain</v-icon></span> buttons.</p>
-              <p>A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action).</p>
-              <p>A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
-              <p><em>Note: once you set this number, it should not change for the rest of the game.</em></p>
-            </Dialog>
-          </h3>
+        </v-card-text>
+
+        <v-card-subtitle>
+          <span>Character Number</span>
+          <Dialog>
+            <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5, by dragging the slider or using the <span class="nowrap"><v-icon small color="error">mdi-heart</v-icon>/<v-icon small color="success">mdi-brain</v-icon></span> buttons.</p>
+            <p>A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action).</p>
+            <p>A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
+            <p><em>Note: once you set this number, it should not change for the rest of the game.</em></p>
+          </Dialog>
+        </v-card-subtitle>
+        <v-card-text>
           <v-slider
             v-model="targetNumber"
             thumb-label="always"
@@ -74,17 +76,19 @@
               </v-btn>
             </template>
           </v-slider>
-          <h3 class="overline mt-3 mb-0">
-            <span>Name</span> 
-          </h3>
+        </v-card-text>
+
+        <v-card-subtitle>Name</v-card-subtitle>
+        <v-card-text>
           <v-text-field
             placeholder="Your Name"
             v-model="character.name"
             class="pt-0 mt-0"
           ></v-text-field>
-          <h3 class="overline mt-0 mb-0">
-            <span>Personal Goal</span> 
-          </h3>
+        </v-card-text>
+
+        <v-card-subtitle>Personal Goals</v-card-subtitle>
+        <v-card-text>
           <v-select
             :items="goals"
             placeholder="Choose your Goal"
@@ -105,9 +109,9 @@
         flat
         shaped
         elevation="0">
+        <v-card-title>Ok, all set!</v-card-title>
+        <v-card-subtitle>You have:</v-card-subtitle>
         <v-card-text>
-          <h2 class="text--h5 mb-3 mt-3">Ok, all set!</h2>
-          <h3 class="text--h6 mb-1">You have:</h3>
           <ul class="mb-3">
             <li>A Consortium uniform (with built-in vacc-suit for space walks).</li>
             <li>A super-sweet space-phone-cameracommunicator-scanner thing (with universal translator).</li>
