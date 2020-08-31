@@ -7,7 +7,7 @@
         elevation="0"
         class="mb-6">
         <v-card-text>
-          <p class="text-h5">
+          <p class="text-h6">
             <span v-for="(text, index) in parts" :key="index">{{ text }} {{ options[index][rolls[index]] }} </span>
           </p>
         </v-card-text>
@@ -35,7 +35,7 @@ export default {
   data: () => ({
     parts: [
       '',
-      'wants to',
+      'want(s) to',
       'the',
       'which will',
     ],

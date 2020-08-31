@@ -12,16 +12,14 @@
       </v-btn>
     </template>
     <v-card
-      tile>
+      class="rounded-lg">
       <v-card-title>What the what?</v-card-title>
-      <v-divider></v-divider>
       <v-card-text>
-        <p style="margin-top:1rem;">Want to play the popular one-page RPG <strong><a href="http://www.onesevendesign.com/laserfeelings/" title="Lasers & Feelings RPG" target="_blank">Lasers & Feelings</a></strong> but don't have any dice to roll? This app has got your back!</p>
+        <p>Want to play the popular one-page RPG <strong><a href="http://www.onesevendesign.com/laserfeelings/" title="Lasers & Feelings RPG" target="_blank">Lasers & Feelings</a></strong> but don't have any dice to roll? This app has got your back!</p>
       </v-card-text>
-      <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text color="error" @click="dialog = false">Ok, let's roll!</v-btn>
+        <v-btn text color="info" @click="dialog = false">Ok, let's roll!</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

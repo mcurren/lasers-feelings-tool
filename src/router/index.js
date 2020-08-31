@@ -12,7 +12,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Intro',
+    name: 'Lasers & Feelings App',
     component: Home
   },
   {

@@ -6,12 +6,9 @@
         shaped
         elevation="0"
         class="mb-0">
+        <v-card-title>Create a Ship</v-card-title>
+        <v-card-subtitle>As a group, pick two strengths and one problem for your ship.</v-card-subtitle>
         <v-card-text>
-          <div class="ship mb-6">
-            <h2 class="text--h4 mb-4 mt-2">Create the Ship</h2>
-            <p>As a group, pick two strengths and one problem for your ship.</p>
-          </div>
-
           <div class="strengths mb-4 mt-2">
             <span class="subheading">Select two Strengths</span>
             <v-chip-group
@@ -27,7 +24,6 @@
                 filter-icon="mdi-checkbox-marked-circle">
                 {{ item }}
               </v-chip>
-
             </v-chip-group>
           </div>
 

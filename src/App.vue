@@ -8,29 +8,34 @@
       app 
       dark 
       elevation="1"
-      :collapse="!collapseOnScroll"
-      :collapse-on-scroll="collapseOnScroll"
       color="primary">
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title v-if="this.$route.name === 'Intro'">
-        <span class="hide-small">Play</span> Lasers & Feelings
-      </v-toolbar-title>
-      <v-toolbar-title v-else>
-        <span class="hide-small">Lasers & Feelings:</span> {{ this.$route.name }}
+      <img src="./assets/avatar-white.png" style="max-height: 36px;">        
+      <v-divider
+        class="mx-4"
+        vertical
+        inset
+      ></v-divider>
+      <v-toolbar-title>
+        {{ this.$route.name }}
       </v-toolbar-title>
       <v-spacer/>
-      <InfoDialog/>
+      <v-toolbar-items>
+        <InfoDialog/>
+      </v-toolbar-items>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     </v-app-bar>
 
     <!-- content -->
     <v-main>
-      <transition name="fade" mode="out-in">
-        <router-view 
-          id="content"
-          @updateOutcome="updateOutcome"
-          @toggleMenu="drawer = !drawer"
-        />
-      </transition>
+      <v-container fluid>
+        <transition name="fade" mode="out-in">
+          <router-view 
+            id="content"
+            @updateOutcome="updateOutcome"
+            @toggleMenu="drawer = !drawer"
+          />
+        </transition>
+      </v-container>
     </v-main>
 
     <!-- nav -->
@@ -67,7 +72,6 @@ export default {
     NavMenu,
   },
   data: () => ({
-    collapseOnScroll: true,
     drawer: false,
     group: null,
     outcome: null,
@@ -102,6 +106,9 @@ export default {
 body {
   touch-action: manipulation;
   background: #5a1078;
+}
+img {
+  max-width: 100%;
 }
 #app {
   background: linear-gradient(0deg, rgba(90,16,120,1) 10%, rgba(177,59,191,1) 45%, rgba(250,184,100,1) 100%) !important;
@@ -158,7 +165,7 @@ body {
   margin: 0 auto;
   position: relative;
   section {
-    margin: 2rem 0.75rem;
+    margin: 1rem 0 2em;
   }
 }
 // results styles - needs to avoid scoping???
@@ -188,6 +195,13 @@ body {
 }
 .theme--light.v-icon {
   color: rgba(0,8,37,0.74);
+}
+.v-card__subtitle {
+  padding-bottom: 10px;
+
+  &:not(:first-child) {
+    padding-top: 0;
+  }
 }
 .theme--light.v-card > .v-card__text, 
 .theme--light.v-card .v-card__subtitle {

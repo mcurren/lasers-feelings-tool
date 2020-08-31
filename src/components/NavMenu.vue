@@ -14,7 +14,7 @@
         <img src="../assets/avatar-white.png">
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title>Play Lasers & Feelings</v-list-item-title>
+        <v-list-item-title>Lasers & Feelings App</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 

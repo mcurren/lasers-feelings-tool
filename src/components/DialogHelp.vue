@@ -15,13 +15,14 @@
       </v-btn>
     </template>
     <v-card
-      tile>
+      class="rounded-lg">
+      <v-card-title v-if="title">{{ title }}</v-card-title>
       <v-card-text>
         <slot></slot>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text color="error" @click="dialog = false">Close</v-btn>
+        <v-btn text color="info" @click="dialog = false">Close</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -30,6 +31,13 @@
 <script>
   export default {
     name: 'Dialog',
+    props: {
+      title: {
+        type: String,
+        required: false,
+        default: null,
+      }
+    },
     data: () => ({
       dialog: false,
     }),
