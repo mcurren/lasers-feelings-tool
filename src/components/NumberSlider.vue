@@ -1,7 +1,7 @@
 <template>
   <div :class="wrapClass">
     <v-card-subtitle :class="titleClass">
-      <span>Character Number</span>
+      <span>{{ title }}</span>
       <Dialog v-if="hasDialog">
         <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5, by dragging the slider or using the <span class="nowrap"><v-icon small color="error">mdi-heart</v-icon>/<v-icon small color="success">mdi-brain</v-icon></span> buttons.</p>
         <p>A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action).</p>
@@ -84,6 +84,11 @@ export default {
     Dialog
   },
   props: {
+    title: {
+      type: String,
+      required: false,
+      default: 'Character Number',
+    },
     hasTopPad: {
       type: Boolean,
       required: false,

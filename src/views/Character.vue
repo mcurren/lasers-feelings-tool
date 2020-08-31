@@ -6,7 +6,7 @@
         shaped
         elevation="0"
         class="mb-6">
-        <v-card-subtitle>Style</v-card-subtitle>
+        <v-card-subtitle>Select a Style</v-card-subtitle>
         <v-card-text>
           <v-select
             :items="styles"
@@ -16,7 +16,7 @@
           ></v-select>
         </v-card-text>
 
-        <v-card-subtitle>Role</v-card-subtitle>
+        <v-card-subtitle>Select a Role</v-card-subtitle>
         <v-card-text>
           <v-select
             :items="roles"
@@ -27,12 +27,13 @@
         </v-card-text>
 
         <NumberSlider 
+          title="Choose a Number"
           :hasTopPad="false"
           :padBottom="3"
           @numberChange="changeTargetNumber($event)"
         />
 
-        <v-card-subtitle>Name</v-card-subtitle>
+        <v-card-subtitle>Enter a Name</v-card-subtitle>
         <v-card-text>
           <v-text-field
             placeholder="Your Name"
@@ -41,7 +42,7 @@
           ></v-text-field>
         </v-card-text>
 
-        <v-card-subtitle>Personal Goals</v-card-subtitle>
+        <v-card-subtitle>Select a Personal Goal</v-card-subtitle>
         <v-card-text>
           <v-select
             :items="goals"
@@ -51,7 +52,7 @@
           ></v-select>
           <v-text-field
             v-if="character.goal === 'Other'"
-            label="Your Goal"
+            label="Enter a Goal"
             v-model="character.otherGoal"
           ></v-text-field>
         </v-card-text>
