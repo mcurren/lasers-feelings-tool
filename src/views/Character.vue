@@ -26,57 +26,11 @@
           ></v-select>
         </v-card-text>
 
-        <v-card-subtitle>
-          <span>Character Number</span>
-          <Dialog>
-            <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5, by dragging the slider or using the <span class="nowrap"><v-icon small color="error">mdi-heart</v-icon>/<v-icon small color="success">mdi-brain</v-icon></span> buttons.</p>
-            <p>A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action).</p>
-            <p>A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
-            <p><em>Note: once you set this number, it should not change for the rest of the game.</em></p>
-          </Dialog>
-        </v-card-subtitle>
-        <v-card-text>
-          <v-slider
-            v-model="targetNumber"
-            thumb-label="always"
-            color="info"
-            track-color="warning"
-            min="2"
-            max="5"
-            ticks="always"
-            :thumb-size="24"
-            class="slider align-center"
-            hide-details>
-            <template v-slot:prepend>
-              <v-btn
-                fab
-                small
-                elevation="0"
-                color="#f7edfd"
-                @click="decrement('targetNumber', 2)"
-                class="slider-button">
-                <v-icon
-                  color="error">
-                  mdi-heart
-                </v-icon>
-              </v-btn>
-            </template>
-            <template v-slot:append>
-              <v-btn
-                fab
-                small
-                elevation="0"
-                color="#f7edfd"
-                @click="increment('targetNumber', 5)"
-                class="slider-button">
-                <v-icon
-                  color="success">
-                  mdi-brain
-                </v-icon>
-              </v-btn>
-            </template>
-          </v-slider>
-        </v-card-text>
+        <NumberSlider 
+          :hasTopPad="false"
+          :padBottom="3"
+          @numberChange="changeTargetNumber($event)"
+        />
 
         <v-card-subtitle>Name</v-card-subtitle>
         <v-card-text>
@@ -120,35 +74,15 @@
         </v-card-text>
       </v-card>
     </section>
-
-    <v-snackbar
-      light
-      multiLine
-      elevation="1"
-      timeout="6000"
-      color="warning"
-      transition="slide-y-reverse-transition"
-      v-model="alert.show">
-      {{ alert.text }}
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          color="secondary"
-          text
-          v-bind="attrs"
-          @click="alert.show = false">
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
   </div>
 </template>
 <script>
-import Dialog from '@/components/DialogHelp';
+import NumberSlider from '@/components/NumberSlider';
 
 export default {
   name: 'Mission',
   components: {
-    Dialog,
+    NumberSlider,
   },
   data: () => ({
     character: {
@@ -162,10 +96,6 @@ export default {
     styles: ['Alien', 'Android', 'Dangerous', 'Heroic', 'Hot-Shot', 'Intrepid', 'Savvy'],
     roles: ['Doctor', 'Envoy', 'Engineer', 'Explorer', 'Pilot', 'Scientist', 'Soldier'],
     goals: ['Become Captain', 'Meet New Aliens', 'Shoot Bad Guys', 'Find New Worlds', 'Solve Weird Space Mysteries', 'Prove Yourself', 'Keep Being Awesome', 'Other'],
-    alert: {
-      show: false,
-      text: null,
-    },
   }),
   computed: {
     goalSet () {
@@ -189,23 +119,11 @@ export default {
     }
   },
   methods: {
-    decrement (field, min) {
-      // minus button
-      if (this[field] === min) return
-      this[field]--
-    },
-    increment (field, max) {
-      // plus button
-      if (this[field] === max) return
-      this[field]++
+    changeTargetNumber (number) {
+      this.targetNumber = number
     },
   },
   watch: {
-    // save target number to local storage on change
-    targetNumber: function (newNumber, oldNumber) {
-      if (newNumber === oldNumber) return
-      localStorage.setItem('targetNumber', newNumber)
-    },
     // save character to local storage on change
     character: {
       deep: true,
@@ -218,13 +136,6 @@ export default {
     // reset outcome from rolls
     this.$emit('updateOutcome', null)
     // load data from local storage if available
-    const number = localStorage.getItem('targetNumber')
-    if (number) {
-      this.targetNumber = number
-      // alert the user
-      this.alert.text = `Loaded your most recent character number (${number}).`
-      this.alert.show = true
-    }
     const character = localStorage.getItem('character')
     if (character) {
       this.character = JSON.parse(character)
@@ -232,6 +143,7 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
 .overline {
   display: flex;

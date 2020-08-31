@@ -10,57 +10,7 @@
           color="rgba(255,255,255,0.6)"
           elevation="0"
           class="mb-6 rounded-xl target-number">
-          <v-card-subtitle>
-            <span>Character Number</span>
-            <Dialog>
-              <p style="margin-top:1rem;">Choose your <strong>number</strong>, from 2 to 5, by dragging the slider or using the <span class="nowrap"><v-icon small color="error">mdi-heart</v-icon>/<v-icon small color="success">mdi-brain</v-icon></span> buttons.</p>
-              <p>A high number means you’re better at <strong>LASERS</strong> (technology; science; cold rationality; calm, precise action).</p>
-              <p>A low number means you’re better at <strong>FEELINGS</strong> (intuition; diplomacy; seduction; wild, passionate action).</p>
-              <p><em>Note: once you set this number, it should not change for the rest of the game.</em></p>
-            </Dialog>
-          </v-card-subtitle>
-          <v-card-text>
-            <v-slider
-              v-model="targetNumber"
-              thumb-label="always"
-              color="info"
-              track-color="warning"
-              min="2"
-              max="5"
-              ticks="always"
-              :thumb-size="20"
-              class="slider align-center"
-              hide-details>
-              <template v-slot:prepend>
-                <v-btn
-                  fab
-                  small
-                  elevation="0"
-                  color="#f7edfd"
-                  @click="decrement('targetNumber', 2)"
-                  class="slider-button">
-                  <v-icon
-                    color="error">
-                    mdi-heart
-                  </v-icon>
-                </v-btn>
-              </template>
-              <template v-slot:append>
-                <v-btn
-                  fab
-                  small
-                  elevation="0"
-                  color="#f7edfd"
-                  @click="increment('targetNumber', 5)"
-                  class="slider-button">
-                  <v-icon
-                    color="success">
-                    mdi-brain
-                  </v-icon>
-                </v-btn>
-              </template>
-            </v-slider>
-          </v-card-text>
+          <NumberSlider @numberChange="changeTargetNumber($event)"/>
         </v-card>
 
         <v-card
@@ -196,36 +146,18 @@
         </v-btn>
       </section>
     </transition>
-
-    <v-snackbar
-      light
-      multiLine
-      elevation="1"
-      timeout="6000"
-      color="warning"
-      transition="slide-y-reverse-transition"
-      v-model="alert.show">
-      {{ alert.text }}
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          color="secondary"
-          text
-          v-bind="attrs"
-          @click="alert.show = false">
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
   </div>
 </template>
 
 <script>
 import Dialog from '@/components/DialogHelp';
+import NumberSlider from '@/components/NumberSlider';
 
 export default {
   name: 'RollDice',
   components: {
     Dialog,
+    NumberSlider,
   },
   data: () => ({
     targetNumber: 3,
@@ -252,22 +184,10 @@ export default {
       },
     },
     hasRolled: false,
-    alert: {
-      show: false,
-      text: null
-    },
   }),
   mounted () {
     // reset outcome from rolls
     this.$emit('updateOutcome', null)
-    // load data from local storage if available
-    const number = localStorage.getItem('targetNumber')
-    if (number) {
-      this.targetNumber = number
-      // alert the user
-      this.alert.text = `Loaded your most recent character number (${number}).`
-      this.alert.show = true
-    }
   },
   computed: {
     totalDice () {
@@ -379,107 +299,91 @@ export default {
       // reset rolls to start over
       this.currentRolls = []
     },
-    decrement (field, min) {
-      // minus button
-      if (this[field] === min) return
-      this[field]--
-    },
-    increment (field, max) {
-      // plus button
-      if (this[field] === max) return
-      this[field]++
-    },
-  },
-  watch: {
-    // save target number to local storage on change
-    targetNumber: function (newNumber, oldNumber) {
-      if (newNumber === oldNumber) return
-      localStorage.setItem('targetNumber', newNumber)
+    changeTargetNumber (number) {
+      this.targetNumber = number
     },
   },
 }
 </script>
-<style lang="scss" scoped>
-  .overline, 
-  .v-card__subtitle {
-    display: flex;
-    align-items: center;
-    & > span {
-      margin-right: 5px;
-    }
-  }
-  .helper-fields {
-    display: flex;
-    .helper-count {
-      margin: 0 12px;
-      width: 40px;
-      font-size: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-  .target-number {
-    border-color: rgba(#000825, 0.6) !important;
-  }
-  .results {
-    .rolls {
-      .v-icon {
-        font-size: 60px !important;
-      }
-    }
-    .outcome {
-      @media (max-width: 600px) {
-        font-size: 1.3rem !important;
-        line-height: 1.8rem;
-      }
-    }
-    .laserfeelings {
-      @media (max-width: 600px) {
-        font-size: 1.15rem !important;
-        line-height: 1.6rem;
-      }
-    }
-  }
 
-  // custom transitions
-  .rollFade-enter-to {
-    transition-delay: 0.6s;
-    position: static;
-    height: auto;
+<style lang="scss" scoped>
+.overline, 
+.v-card__subtitle {
+  display: flex;
+  align-items: center;
+  & > span {
+    margin-right: 5px;
   }
-  .rollFade-enter {
-    position: absolute;
-    height: 0;
+}
+.helper-fields {
+  display: flex;
+  .helper-count {
+    margin: 0 12px;
+    width: 40px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  .rollFade-enter-active, 
-  .rollFade-leave-active {
-    transition-property: opacity, transform;
-    transition-duration: 0.6s;
+}
+.results {
+  .rolls {
+    .v-icon {
+      font-size: 60px !important;
+    }
   }
-  .rollFade-enter, 
-  .rollFade-leave-to {
-    opacity: 0;
-    transform: translateY(-50%);
+  .outcome {
+    @media (max-width: 600px) {
+      font-size: 1.3rem !important;
+      line-height: 1.8rem;
+    }
   }
-  .resultFade-enter-to {
-    transition-delay: 0.6s;
+  .laserfeelings {
+    @media (max-width: 600px) {
+      font-size: 1.15rem !important;
+      line-height: 1.6rem;
+    }
   }
-  .resultFade-enter-active, 
-  .resultFade-leave-active {
-    transition-property: opacity, transform;
-    transition-duration: 0.6s;
-  }
-  .resultFade-leave-active {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-  .resultFade-enter, 
-  .resultFade-leave-to {
-    opacity: 0;
-    transform: translateY(50%);
-  }
+}
+
+// custom transitions
+.rollFade-enter-to {
+  transition-delay: 0.6s;
+  position: static;
+  height: auto;
+}
+.rollFade-enter {
+  position: absolute;
+  height: 0;
+}
+.rollFade-enter-active, 
+.rollFade-leave-active {
+  transition-property: opacity, transform;
+  transition-duration: 0.6s;
+}
+.rollFade-enter, 
+.rollFade-leave-to {
+  opacity: 0;
+  transform: translateY(-50%);
+}
+.resultFade-enter-to {
+  transition-delay: 0.6s;
+}
+.resultFade-enter-active, 
+.resultFade-leave-active {
+  transition-property: opacity, transform;
+  transition-duration: 0.6s;
+}
+.resultFade-leave-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.resultFade-enter, 
+.resultFade-leave-to {
+  opacity: 0;
+  transform: translateY(50%);
+}
 </style>

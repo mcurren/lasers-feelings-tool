@@ -9,7 +9,9 @@
       dark 
       elevation="1"
       color="primary">
-      <img src="./assets/avatar-white.png" style="max-height: 36px;">        
+      <router-link to="/">
+        <img src="./assets/avatar-white.png" class="header-icon">
+      </router-link>
       <v-divider
         class="mx-4"
         vertical
@@ -149,6 +151,10 @@ img {
 .v-application h1 a {
   color: inherit;
   text-decoration: none;;
+}
+.header-icon {
+  max-height: 36px;
+  display: block;
 }
 #nav {
   padding: 30px;
