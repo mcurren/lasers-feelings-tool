@@ -55,36 +55,21 @@
 </template>
 
 <script>
+import { Auth } from '@/firebase/auth';
+
 export default {
   name: 'NavMenu',
   data: () => ({
-    playerItems: [
-      {
-        icon: 'mdi-account-edit-outline',
-        title: 'Create a Character',
-        route: '/character'
-      },
-      {
-        icon: 'mdi-rocket-outline',
-        title: 'Create a Ship',
-        route: '/ship'
-      },
-      {
-        icon: 'mdi-dice-multiple-outline',
-        title: 'Roll Some Dice',
-        route: '/roll'
-      },
-    ],
     gmItems: [
       {
         icon: 'mdi-script-text-outline',
         title: 'Generate a Mission',
-        route: '/mission'
+        route: '/mission',
       },
       {
         icon: 'mdi-puzzle-outline',
         title: 'Run the Game',
-        route: '/run'
+        route: '/run',
       },
     ],
   }),
@@ -94,9 +79,34 @@ export default {
       required: true,
     }
   },
+  computed: {
+    playerItems () {
+      return [
+        {
+          icon: 'mdi-account-edit-outline',
+          title: 'Create a Character',
+          route: this.getRoute('character'),
+        },
+        {
+          icon: 'mdi-rocket-outline',
+          title: 'Create a Ship',
+          route: this.getRoute('ship'),
+        },
+        {
+          icon: 'mdi-dice-multiple-outline',
+          title: 'Roll Some Dice',
+          route: '/roll',
+        },
+      ]
+    },
+  },
   methods: {
     toggleMenu (event) {
       this.$emit('changeMenu', event)
+    },
+    getRoute (route) {
+      const userId = (Auth.currentUser) ? Auth.currentUser.uid : false
+      return (userId) ? `/${route}/${userId}` : `/${route}`
     },
   },
 }

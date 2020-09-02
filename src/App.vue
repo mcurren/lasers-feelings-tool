@@ -176,7 +176,7 @@ img {
   margin: 0 auto;
   position: relative;
   section {
-    margin: 0.5rem 0;
+    margin: 0.65rem 0;
   }
 }
 // results styles - needs to avoid scoping???
